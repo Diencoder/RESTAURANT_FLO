@@ -26,38 +26,44 @@
 #### Inventory 
 <img src="https://github.com/mwasikz/robo-cafe-rms/blob/main/admin/img/readme_assets/admin/inventory_management_page.png" width="1000" >
 
-### :orange_circle: Features
-- Admin can login to their account with ID and Password.
-- Homepage:
-  - Quick navigation between sections.
-  - Overview of the restaurant using Google Charts.
-  - Order notification.
-  - Inventory notification. 
-- The Admin Panel section:
-  - List of all admins.
-  - Adding new admin.
-  - Change password of admins.
-  - Update Information of admins.
-  - Deleting admins.
-- The Online Orders page:
-  - Display order ID and information of the user.
-  - Display the status of the payment.
-  - Button to update the order status.
-  - A table containing the list of items ordered.
-- The Eat In Orders is received from the restaurant hardware device: <a href="https://github.com/mwasikz/food-ordering-device">Documentation for the Hardware     Device</a>
-  - Display order information and Table ID.
-  - Status of payment.
-  - Status of order.
-  - Admin can update and delete order information.
-- Category Management:
-  - Admin can add a new category.
-  - Admin can update categories. 
-  - Admin can delete categories. 
-- Inventory Management:
-  - Inventory page fetches real time inventory information from the database each time an order is placed.
-  - Notification for items running low on stocks.
-  - Different status system for quota of stocks.
-  - Admin can update stock information. 
+orange_circle: Tính Năng
+
+Quản trị viên có thể đăng nhập vào tài khoản bằng ID và Mật khẩu.
+Trang chủ:
+Dễ dàng điều hướng giữa các phần.
+Tổng quan về nhà hàng sử dụng Google Charts.
+Thông báo đơn hàng.
+Thông báo kho.
+Phần Quản lý Quản Trị Viên:
+Danh sách tất cả các quản trị viên.
+Thêm mới quản trị viên.
+Đổi mật khẩu của quản trị viên.
+Cập nhật thông tin của quản trị viên.
+Xóa quản trị viên.
+Trang Đơn Hàng Online:
+Hiển thị ID đơn hàng và thông tin người dùng.
+Hiển thị trạng thái thanh toán.
+Nút cập nhật trạng thái đơn hàng.
+Bảng liệt kê danh sách các món đã đặt.
+Đơn Hàng Ăn Tại Chỗ nhận từ thiết bị phần cứng nhà hàng: <a href="https://github.com/mwasikz/food-ordering-device">Tài liệu cho thiết bị phần cứng</a>
+Hiển thị thông tin đơn hàng và mã bàn.
+Trạng thái thanh toán.
+Trạng thái đơn hàng.
+Quản Lý Bàn Ăn
+Thêm bàn mới: Quản trị viên có thể thêm các bàn ăn mới vào hệ thống.
+Xóa bàn: Quản trị viên có thể xóa bàn không còn sử dụng hoặc cần thay đổi.
+Đặt bàn cho khách: Quản trị viên có thể đặt bàn cho khách trong hệ thống, theo yêu cầu của khách hàng.
+Hủy bàn: Quản trị viên có thể hủy việc đặt bàn nếu khách hàng thay đổi kế hoạch hoặc không đến.
+Quản trị viên có thể cập nhật và xóa thông tin đơn hàng.
+Quản Lý Danh Mục:
+Quản trị viên có thể thêm mới danh mục.
+Quản trị viên có thể cập nhật danh mục.
+Quản trị viên có thể xóa danh mục.
+Quản Lý Kho:
+Trang kho lấy thông tin kho thời gian thực từ cơ sở dữ liệu mỗi khi đơn hàng được đặt.
+Thông báo cho các món hàng sắp hết hàng.
+Hệ thống trạng thái khác nhau cho lượng hàng tồn kho.
+Quản trị viên có thể cập nhật thông tin kho.
 ### :orange_circle: Languages and Technologies Used
 - HTML5/CSS3
 - JavaScript (to create dynamically updating content)

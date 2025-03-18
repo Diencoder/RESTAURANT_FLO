@@ -11,7 +11,7 @@ session_unset();
 // Hủy session
 session_destroy();
 
-// Chuyển hướng về trang đăng nhập
-header('Location: ' . SITEURL . 'login.php');
+// Chuyển hướng về trang đăng nhập trong thư mục frontend
+header('Location: http://localhost/robo-cafe-rms/frontend/login.php');
 exit;
 ?>

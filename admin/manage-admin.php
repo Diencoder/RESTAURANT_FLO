@@ -239,10 +239,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			</div>
 
 			<!-- Table ---> 
-			<div>
-				<br>
-				<a href="add-admin.php" class="button-8" role="button">Thêm Admin</a>
-			</div>
+			
 
 			<div class="table-data">
 				<div class="order">

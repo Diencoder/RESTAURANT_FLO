@@ -1,5 +1,5 @@
 <?php include('../frontend/config/constants.php');
-	  //include('login-check.php');
+      //include('login-check.php');
 // Kiểm tra nếu người dùng chưa đăng nhập hoặc không phải admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     // Nếu không phải admin hoặc chưa đăng nhập, chuyển hướng về trang đăng nhập
@@ -28,7 +28,7 @@ $stock_notif = "SELECT stock FROM tbl_food
 $res_stock_notif = mysqli_query($conn, $stock_notif);
 $row_stock_notif = mysqli_num_rows($res_stock_notif);
 
-//Message Notification
+//Thông báo tin nhắn
 $message_notif = "SELECT message_status FROM message
 				 WHERE message_status = 'unread'";
 $res_message_notif = mysqli_query($conn, $message_notif);
@@ -37,20 +37,20 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- My CSS -->
+	<!-- CSS của tôi -->
 	<link rel="stylesheet" href="style-admin.css">
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
 
-	<title>Robo Cafe Admin</title>
+	<title>Quản Trị Robo Cafe</title>
 </head>
 <body>
 
@@ -64,19 +64,19 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li >
 				<a href="index.php">
 					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
+					<span class="text">Bảng Điều Khiển</span>
 				</a>
 			</li>
 			<li class="active">
 				<a href="manage-admin.php">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Admin Panel</span>
+					<span class="text">Bảng Điều Khiển Admin</span>
 				</a>
 			</li>
 			<li>
 				<a href="manage-online-order.php">
 					<i class='bx bxs-cart'></i>
-					<span class="text">Online Orders&nbsp;</span>
+					<span class="text">Đơn Hàng Online&nbsp;</span>
 						<?php 
 					if($row_online_order_notif>0)
 					{
@@ -96,7 +96,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<li>
 				<a href="manage-ei-order.php">
 					<i class='bx bx-qr-scan'></i>
-					<span class="text" >Eat In Orders&nbsp;&nbsp;&nbsp;
+					<span class="text" >Đơn Hàng Eat In&nbsp;&nbsp;&nbsp;
 						
 					</span>
 					<?php 
@@ -119,19 +119,19 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li>
 				<a href="manager-category.php">
 					<i class='bx bxs-category'></i>
-					<span class="text">Category</span>
+					<span class="text">Danh Mục</span>
 				</a>
 			</li>
 			<li>
 				<a href="manage-food.php">
 					<i class='bx bxs-food-menu'></i>
-					<span class="text">Food Menu</span>
+					<span class="text">Thực Đơn</span>
 				</a>
 			</li>
 			<li class="">
 				<a href="inventory.php">
 					<i class='bx bxs-box'></i>
-					<span class="text">Inventory</span>
+					<span class="text">Kho Hàng</span>
 				</a>
 			</li>
 		</ul>
@@ -139,13 +139,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li>
 				<a href="#">
 					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
+					<span class="text">Cài Đặt</span>
 				</a>
 			</li>
 			<li>
 				<a href="logout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
+					<span class="text">Đăng Xuất</span>
 				</a>
 			</li>
 		</ul>
@@ -162,7 +162,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<a href="#" class="nav-link"></a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
+					<input type="search" placeholder="Tìm kiếm...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
 			</form>
@@ -199,20 +199,20 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_ei_order_notif>0)
 							{
 								?>
-								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;new EI order</li></a>
+								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;đơn hàng EI mới</li></a>
 								<?php
 
 							}
 							if($row_stock_notif>0 and $row_stock_notif !=1 )
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Items are running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else if($row_stock_notif == 1)
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Item is running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else
@@ -251,17 +251,17 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Change Password</h1>
+					<h1>Đổi Mật Khẩu</h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="index.php">Dashboard</a>
+							<a href="index.php">Bảng Điều Khiển</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="manage-admin.php">Manage Admin</a>
+							<a class="active" href="manage-admin.php">Quản Lý Admin</a>
 						</li>
                         <li>
-							<a class="active" href="manage-admin.php">Change Password</a>
+							<a class="active" href="manage-admin.php">Đổi Mật Khẩu</a>
 						</li>
 					</ul>
 				</div>
@@ -281,14 +281,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
             <form action="" method="POST">
             <table class="tbl-30">
                 <tr>
-                    <td>Current Password</td>
+                    <td>Mật khẩu hiện tại</td>
                     <td>
                         <input type="password" name="current_password" id="ip2">
                     </td>
                 </tr>
 
                 <tr>
-                    <td>New Password</td>
+                    <td>Mật khẩu mới</td>
                     <td>
                         <input type="password" name="new_password" id="ip2">
                     </td>
@@ -296,7 +296,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                 </tr>
 
                 <tr>
-                    <td>Confirm Password</td>
+                    <td>Xác nhận mật khẩu</td>
                     <td>
                         <input type="password" name="confirm_password" id="ip2">
                     </td>
@@ -306,7 +306,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                 <tr>
                     <td colspan="2">
                         <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="submit" name="submit" value="Change Password" class="button-8" role="button">
+                        <input type="submit" name="submit" value="Đổi Mật Khẩu" class="button-8" role="button">
                     </td>
                 </tr>
 
@@ -319,35 +319,35 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         </div>
 
         <?php 
-//Check whether the submit button is clicked or not
+//Kiểm tra xem nút submit có được nhấn hay không
 if(isset($_POST['submit'])){
    // echo "Clicked";
    
-   //1. Get the data from form
+   //1. Lấy dữ liệu từ form
 
    $id = $_POST['id'];
    $current_password = md5($_POST['current_password']);
    $new_password = md5($_POST['new_password']);
    $confirm_password = md5($_POST['confirm_password']);
 
-   //2. Check whether the user with current ID and Password exists or not
+   //2. Kiểm tra xem người dùng với ID và mật khẩu hiện tại có tồn tại hay không
 
         $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$current_password'";
 
-        //Execute the Query
+        //Thực hiện truy vấn
 
         $res = mysqli_query($conn, $sql);
 
         if($res == true){
-            //Check whether data is available or not
+            //Kiểm tra xem có dữ liệu không
             $count = mysqli_num_rows($res);
 
             if($count==1){
-                //User exists and password can be changed
+                //Người dùng tồn tại và có thể thay đổi mật khẩu
                 //echo "User Found";
-                //Check whether the new password and confirm password match or not
+                //Kiểm tra xem mật khẩu mới và mật khẩu xác nhận có trùng khớp không
                 if($new_password==$confirm_password){
-                    //Update the password
+                    //Cập nhật mật khẩu
                     //echo "Password Match";
                     $sql2 = "UPDATE tbl_admin SET
                         password = '$new_password'
@@ -355,55 +355,59 @@ if(isset($_POST['submit'])){
                     
                     
                     ";
-                    //Execute the Query
+                    //Thực hiện truy vấn
                     $res2 = mysqli_query($conn, $sql2);
 
-                    //Check whether the Query executed or not
+                    //Kiểm tra xem truy vấn có thành công không
 
                     if($res2==true){
-                         $_SESSION['change-pwd'] = "<div class='success'>Password Changed Successfully.</div>";
+                         $_SESSION['change-pwd'] = "<div class='success'>Mật khẩu đã được thay đổi thành công.</div>";
 
-                //Redirecting the user
+                //Chuyển hướng người dùng
 
                 header('location:'.SITEURL.'manage-admin.php');
                     }
                     else{
-                        //Display error message
-                         $_SESSION['pwd-not-match'] = "<div class='error'>Failed to Change Password. Try Again Please.</div>";
+                        //Hiển thị thông báo lỗi
+                         $_SESSION['pwd-not-match'] = "<div class='error'>Không thể thay đổi mật khẩu. Vui lòng thử lại.</div>";
 
-                //Redirecting the user
+                //Chuyển hướng người dùng
 
                 header('location:'.SITEURL.'manage-admin.php');
                     }
                 }
                 else{
-                    $_SESSION['pwd-not-match'] = "<div class='error'>Passwords Did Not Match. Try Again Please.</div>";
+                    $_SESSION['pwd-not-match'] = "<div class='error'>Mật khẩu không trùng khớp. Vui lòng thử lại.</div>";
 
-                //Redirecting the user
+                //Chuyển hướng người dùng
 
                 header('location:'.SITEURL.'manage-admin.php');
 
                 }
             }
             else{
-                //User does not exist. Set message and redirect
-                $_SESSION['user-not-found'] = "<div class='error'>User Not Found</div>";
+                //Người dùng không tồn tại. Thiết lập thông báo và chuyển hướng
+                $_SESSION['user-not-found'] = "<div class='error'>Không tìm thấy người dùng</div>";
 
-                //Redirecting the user
+                //Chuyển hướng người dùng
 
                 header('location:'.SITEURL.'manage-admin.php');
             }
         }
 
 
-   //3. Check whether the New password and confirm password match or not
+   //3. Kiểm tra xem mật khẩu mới và mật khẩu xác nhận có trùng khớp không
 
-   //4. Change password if all of the above are true
+   //4. Thay đổi mật khẩu nếu tất cả các điều kiện trên đều đúng
 
 
 }
 
 ?>
+
+
+
+
 
 
 

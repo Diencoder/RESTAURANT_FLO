@@ -28,7 +28,7 @@ $stock_notif = "SELECT stock FROM tbl_food
 $res_stock_notif = mysqli_query($conn, $stock_notif);
 $row_stock_notif = mysqli_num_rows($res_stock_notif);
 
-//Message Notification
+//Thông báo tin nhắn
 $message_notif = "SELECT message_status FROM message
 				 WHERE message_status = 'unread'";
 $res_message_notif = mysqli_query($conn, $message_notif);
@@ -37,119 +37,44 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- My CSS -->
+	<!-- CSS của tôi -->
 	<link rel="stylesheet" href="style-admin.css">
     <link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
 
-	<title>Robo Cafe Admin</title>
+	<title>Quản Trị Robo Cafe</title>
 </head>
 <body>
 
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="index.php" class="brand">
-			<img src="../images/logo.png" width="80px" alt="">
-		</a>
-		<ul class="side-menu top">
-			<li >
-				<a href="index.php">
-					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li >
-				<a href="manage-admin.php">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Admin Panel</span>
-				</a>
-			</li>
-			<li>
-				<a href="manage-online-order.php">
-					<i class='bx bxs-cart'></i>
-					<span class="text">Online Orders&nbsp;</span>
-						<?php 
-					if($row_online_order_notif>0)
-					{
-						?>
-						<span class="num-ei"><?php echo $row_online_order_notif; ?></span>
-						<?php
-					}
-					else
-					{
-						?>
-						<span class=""> </span>
-						<?php
-					}
-					?>
-				</a>
-			</li>
-		<li>
-				<a href="manage-ei-order.php">
-					<i class='bx bx-qr-scan'></i>
-					<span class="text" >Eat In Orders&nbsp;&nbsp;&nbsp;
-						
-					</span>
-					<?php 
-					if($row_ei_order_notif>0)
-					{
-						?>
-						<span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
-						<?php
-					}
-					else
-					{
-						?>
-						<span class=""> </span>
-						<?php
-					}
-					?>
-					
-				</a>
-			</li>
-			<li class="active">
-				<a href="manage-category.php">
-					<i class='bx bxs-category'></i>
-					<span class="text">Category</span>
-				</a>
-			</li>
-			<li>
-				<a href="manage-food.php">
-					<i class='bx bxs-food-menu'></i>
-					<span class="text">Food Menu</span>
-				</a>
-			</li>
-            <li class="">
-				<a href="inventory.php">
-					<i class='bx bxs-box'></i>
-					<span class="text">Inventory</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="#">
-					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="logout.php" class="logout">
-					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
-	</section>
+        <a href="index.php" class="brand">
+            <img src="../images/logo.png" width="80px" alt="">
+        </a>
+        <ul class="side-menu top">
+            <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng điều khiển</span></a></li>
+            <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản lý Admin</span></a></li>
+            <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn hàng Online&nbsp;</span></a></li>
+            <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn hàng Ăn tại chỗ&nbsp;&nbsp;&nbsp;</span></a></li>
+            <li ><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản lý Bàn&nbsp;&nbsp;&nbsp;</span></a></li>
+            <li class="active" ><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh mục</span></a></li>
+            <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực đơn</span></a></li>
+            <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho</span></a></li>
+        </ul>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Cài đặt</span></a></li>
+            <li><a href="logout.php" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Đăng xuất</span></a></li>
+        </ul>
+    </section>
 	<!-- SIDEBAR -->
 
 
@@ -162,7 +87,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<a href="#" class="nav-link"></a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
+					<input type="search" placeholder="Tìm kiếm...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
 			</form>
@@ -200,13 +125,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_stock_notif>0 and $row_stock_notif !=1 )
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Items are running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else if($row_stock_notif == 1)
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Item is running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else
@@ -216,14 +141,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_ei_order_notif>0)
 							{
 								?>
-								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;New Online Order</li></a>
+								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;Đơn hàng online mới</li></a>
 								<?php
 
 							}
 							if($row_online_order_notif>0)
 							{
 								?>
-								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;New Eat In Order</li></a>
+								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;Đơn hàng Eat In mới</li></a>
 								<?php
 
 							}
@@ -250,7 +175,6 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			</a>
 			</div>
 			</div>
-			
 		</nav>
 		<!-- NAVBAR -->
 
@@ -258,17 +182,17 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Update Category</h1>
+					<h1>Cập Nhật Danh Mục</h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="index.php">Dashboard</a>
+							<a href="index.php">Bảng Điều Khiển</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="" href="manage-category.php">Manage Category</a>
+							<a class="" href="manage-category.php">Quản Lý Danh Mục</a>
 						</li>
 						<li>
-							<a class="active" href="update-category.php.php">Update Category</a>
+							<a class="active" href="update-category.php.php">Cập Nhật Danh Mục</a>
 						</li>
 					</ul>
 				</div>
@@ -277,28 +201,28 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 	
         <br/> 
 
-        <!-- Update Category Form Start-->
+        <!-- Cập Nhật Danh Mục Form Bắt Đầu -->
 
 <?php 
         
-            //Check whether the id is set or not
+            //Kiểm tra xem ID có được thiết lập hay không
             if(isset($_GET['id']))
             {
-                //Get the ID and all other details
+                //Lấy ID và tất cả các chi tiết khác
                 //echo "Getting the Data";
                 $id = $_GET['id'];
-                //Create SQL Query to get all other details
+                //Tạo truy vấn SQL để lấy tất cả chi tiết khác
                 $sql = "SELECT * FROM tbl_category WHERE id=$id";
 
-                //Execute the Query
+                //Thực thi truy vấn
                 $res = mysqli_query($conn, $sql);
 
-                //Count the Rows to check whether the id is valid or not
+                //Đếm số dòng để kiểm tra xem ID có hợp lệ hay không
                 $count = mysqli_num_rows($res);
 
                 if($count==1)
                 {
-                    //Get all the data
+                    //Lấy tất cả dữ liệu
                     $row = mysqli_fetch_assoc($res);
                     $title = $row['title'];
                     $current_image = $row['image_name'];
@@ -307,15 +231,15 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                 }
                 else
                 {
-                    //redirect to manage category with session message
-                    $_SESSION['no-category-found'] = "<div class='error'>Category not Found.</div>";
+                    //Chuyển hướng về quản lý danh mục với thông báo
+                    $_SESSION['no-category-found'] = "<div class='error'>Không tìm thấy danh mục.</div>";
                     header('location:'.SITEURL.'manage-category.php');
                 }
 
             }
             else
             {
-                //redirect to Manage CAtegory
+                //Chuyển hướng về Quản Lý Danh Mục
                 header('location:'.SITEURL.'manage-category.php');
             }
         
@@ -328,34 +252,34 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
             <table class="">
                 <tr>
-                    <td>Title: </td>
+                    <td>Tiêu Đề: </td>
                     <td>
                         <input type="text" name="title" value="<?php echo $title; ?>" id="ip2" required>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Current Image: </td>
+                    <td>Hình Ảnh Hiện Tại: </td>
                     <td>
                         <?php 
                             if($current_image != "")
                             {
-                                //Display the Image
+                                //Hiển thị hình ảnh
                                 ?>
                                 <img src="<?php echo SITEURL; ?>../images/category/<?php echo $current_image; ?>" width="150px">
                                 <?php
                             }
                             else
                             {
-                                //Display Message
-                                echo "<div class='error'>Image Not Added.</div>";
+                                //Hiển thị thông báo
+                                echo "<div class='error'>Chưa thêm hình ảnh.</div>";
                             }
                         ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>New Image: </td>
+                    <td>Hình Ảnh Mới: </td>
                     <td>
                         <input type="file" name="image" required>
                     </td>
@@ -364,18 +288,18 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                 <tr>
                     <td>Featured: </td>
                     <td>
-                        <input <?php if($featured=="Yes"){echo "checked";} ?> type="radio" name="featured" value="Yes" required> Yes 
+                        <input <?php if($featured=="Yes"){echo "checked";} ?> type="radio" name="featured" value="Yes" required> Có 
 
-                        <input <?php if($featured=="No"){echo "checked";} ?> type="radio" name="featured" value="No" required> No 
+                        <input <?php if($featured=="No"){echo "checked";} ?> type="radio" name="featured" value="No" required> Không 
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Active: </td>
+                    <td>Hoạt Động: </td>
                     <td>
-                        <input <?php if($active=="Yes"){echo "checked";} ?> type="radio" name="active" value="Yes" required> Yes 
+                        <input <?php if($active=="Yes"){echo "checked";} ?> type="radio" name="active" value="Yes" required> Có 
 
-                        <input <?php if($active=="No"){echo "checked";} ?> type="radio" name="active" value="No" required> No 
+                        <input <?php if($active=="No"){echo "checked";} ?> type="radio" name="active" value="No" required> Không 
                     </td>
                 </tr>
 
@@ -383,7 +307,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                     <td>
                         <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="submit" name="submit" value="Update Category" class="button-8" role="button">
+                        <input type="submit" name="submit" value="Cập Nhật Danh Mục" class="button-8" role="button">
                     </td>
                 </tr>
 
@@ -396,32 +320,32 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
             if(isset($_POST['submit']))
             {
                 //echo "Clicked";
-                //1. Get all the values from our form
+                //1. Lấy tất cả giá trị từ form
                 $id = $_POST['id'];
                 $title = $_POST['title'];
                 $current_image = $_POST['current_image'];
                 $featured = $_POST['featured'];
                 $active = $_POST['active'];
 
-                //2. Updating New Image if selected
-                //Check whether the image is selected or not
+                //2. Cập nhật hình ảnh mới nếu có chọn
+                //Kiểm tra xem có chọn hình ảnh hay không
                 if(isset($_FILES['image']['name']))
                 {
-                    //Get the Image Details
+                    //Lấy thông tin hình ảnh
                     $image_name = $_FILES['image']['name'];
 
-                    //Check whether the image is available or not
+                    //Kiểm tra xem hình ảnh có tồn tại không
                     if($image_name != "")
                     {
-                        //Image Available
+                        //Có hình ảnh
 
-                        //A. UPload the New Image
+                        //A. Tải lên hình ảnh mới
 
-                        //Auto Rename our Image
-                        //Get the Extension of our image (jpg, png, gif, etc) e.g. "specialfood1.jpg"
+                        //Tự động đổi tên hình ảnh
+                        //Lấy phần mở rộng của hình ảnh (jpg, png, gif, v.v.)
                         $ext = end(explode('.', $image_name));
 
-                        //Rename the Image
+                        //Đổi tên hình ảnh
                         $image_name = "Food_Category_".rand(000, 999).'.'.$ext; // e.g. Food_Category_834.jpg
                         
 
@@ -429,36 +353,36 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
                         $destination_path = "../images/category/".$image_name;
 
-                        //Finally Upload the Image
+                        //Cuối cùng tải lên hình ảnh
                         $upload = move_uploaded_file($source_path, $destination_path);
 
-                        //Check whether the image is uploaded or not
-                        //And if the image is not uploaded then we will stop the process and redirect with error message
+                        //Kiểm tra xem hình ảnh có tải lên thành công không
+                        //Và nếu hình ảnh không tải lên được thì sẽ dừng và chuyển hướng với thông báo lỗi
                         if($upload==false)
                         {
-                            //SEt message
-                            $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                            //Redirect to Add CAtegory Page
+                            //Hiển thị thông báo
+                            $_SESSION['upload'] = "<div class='error'>Không thể tải hình ảnh lên. </div>";
+                            //Chuyển hướng về trang quản lý danh mục
                             header('location:'.SITEURL.'manage-category.php');
-                            //STop the Process
+                            //Dừng quá trình
                             die();
                         }
 
-                        //B. Remove the Current Image if available
+                        //B. Xóa hình ảnh hiện tại nếu có
                         if($current_image!="")
                         {
                             $remove_path = "../images/category/".$current_image;
 
                             $remove = unlink($remove_path);
 
-                            //CHeck whether the image is removed or not
-                            //If failed to remove then display message and stop the processs
+                            //Kiểm tra xem hình ảnh có bị xóa không
+                            //Nếu không xóa được hình ảnh thì hiển thị thông báo và dừng quá trình
                             if($remove==false)
                             {
-                                //Failed to remove image
-                                $_SESSION['failed-remove'] = "<div class='error'>Failed to remove current Image.</div>";
+                                //Không thể xóa hình ảnh
+                                $_SESSION['failed-remove'] = "<div class='error'>Không thể xóa hình ảnh hiện tại.</div>";
                                 header('location:'.SITEURL.'manage-category.php');
-                                die();//Stop the Process
+                                die();//Dừng quá trình
                             }
                         }
                         
@@ -474,7 +398,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                     $image_name = $current_image;
                 }
 
-                //3. Update the Database
+                //3. Cập nhật vào cơ sở dữ liệu
                 $sql2 = "UPDATE tbl_category SET 
                     title = '$title',
                     image_name = '$image_name',
@@ -483,21 +407,21 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
                     WHERE id=$id
                 ";
 
-                //Execute the Query
+                //Thực thi truy vấn
                 $res2 = mysqli_query($conn, $sql2);
 
-                //4. REdirect to Manage Category with MEssage
-                //CHeck whether executed or not
+                //4. Chuyển hướng về quản lý danh mục với thông báo
+                //Kiểm tra xem truy vấn có thành công không
                 if($res2==true)
                 {
-                    //Category Updated
-                    $_SESSION['update'] = "<div class='success'>Category Updated Successfully.</div>";
+                    //Danh mục đã được cập nhật
+                    $_SESSION['update'] = "<div class='success'>Danh Mục Đã Được Cập Nhật Thành Công.</div>";
                     header('location:'.SITEURL.'manage-category.php');
                 }
                 else
                 {
-                    //failed to update category
-                    $_SESSION['update'] = "<div class='error'>Failed to Update Category.</div>";
+                    //Cập nhật danh mục thất bại
+                    $_SESSION['update'] = "<div class='error'>Cập Nhật Danh Mục Thất Bại.</div>";
                     header('location:'.SITEURL.'manage-category.php');
                 }
 
@@ -506,7 +430,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         ?>
        
 
-        <!-- Update Category Form End -->
+        <!-- Cập Nhật Danh Mục Form Kết Thúc -->
 
         
 

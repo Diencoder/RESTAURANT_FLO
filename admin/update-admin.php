@@ -1,5 +1,5 @@
 <?php include('../frontend/config/constants.php');
-	  //include('login-check.php');
+      //include('login-check.php');
 // Kiểm tra nếu người dùng chưa đăng nhập hoặc không phải admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     // Nếu không phải admin hoặc chưa đăng nhập, chuyển hướng về trang đăng nhập
@@ -28,7 +28,7 @@ $stock_notif = "SELECT stock FROM tbl_food
 $res_stock_notif = mysqli_query($conn, $stock_notif);
 $row_stock_notif = mysqli_num_rows($res_stock_notif);
 
-//Message Notification
+//Thông báo tin nhắn
 $message_notif = "SELECT message_status FROM message
 				 WHERE message_status = 'unread'";
 $res_message_notif = mysqli_query($conn, $message_notif);
@@ -37,20 +37,20 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- My CSS -->
+	<!-- CSS của tôi -->
 	<link rel="stylesheet" href="style-admin.css">
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
 
-	<title>Robo Cafe Admin</title>
+	<title>Quản Trị Robo Cafe</title>
 </head>
 <body>
 
@@ -64,19 +64,19 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li >
 				<a href="index.php">
 					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
+					<span class="text">Bảng Điều Khiển</span>
 				</a>
 			</li>
 			<li class="active">
 				<a href="manage-admin.php">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Admin Panel</span>
+					<span class="text">Bảng Điều Khiển Admin</span>
 				</a>
 			</li>
 			<li>
 				<a href="manage-online-order.php">
 					<i class='bx bxs-cart'></i>
-					<span class="text">Online Orders&nbsp;</span>
+					<span class="text">Đơn Hàng Online&nbsp;</span>
 						<?php 
 					if($row_online_order_notif>0)
 					{
@@ -96,7 +96,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li>
 				<a href="manage-ei-order.php">
 					<i class='bx bx-qr-scan'></i>
-					<span class="text" >Eat In Orders&nbsp;&nbsp;&nbsp;
+					<span class="text" >Đơn Hàng Eat In&nbsp;&nbsp;&nbsp;
 						
 					</span>
 					<?php 
@@ -119,19 +119,19 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li>
 				<a href="manager-category.php">
 					<i class='bx bxs-category'></i>
-					<span class="text">Category</span>
+					<span class="text">Danh Mục</span>
 				</a>
 			</li>
 			<li>
 				<a href="manage-food.php">
 					<i class='bx bxs-food-menu'></i>
-					<span class="text">Food Menu</span>
+					<span class="text">Thực Đơn</span>
 				</a>
 			</li>
 			<li class="">
 				<a href="inventory.php">
 					<i class='bx bxs-box'></i>
-					<span class="text">Inventory</span>
+					<span class="text">Kho Hàng</span>
 				</a>
 			</li>
 		</ul>
@@ -139,13 +139,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<li>
 				<a href="#">
 					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
+					<span class="text">Cài Đặt</span>
 				</a>
 			</li>
 			<li>
 				<a href="logout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
+					<span class="text">Đăng Xuất</span>
 				</a>
 			</li>
 		</ul>
@@ -162,7 +162,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<a href="#" class="nav-link"></a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
+					<input type="search" placeholder="Tìm kiếm...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
 			</form>
@@ -200,13 +200,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_stock_notif>0 and $row_stock_notif !=1 )
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Items are running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else if($row_stock_notif == 1)
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Item is running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng sắp hết</li></a>
 								<?php
 							}
 							else
@@ -216,14 +216,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_ei_order_notif>0)
 							{
 								?>
-								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;New Online Order</li></a>
+								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;Đơn hàng online mới</li></a>
 								<?php
 
 							}
 							if($row_online_order_notif>0)
 							{
 								?>
-								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;New Eat In Order</li></a>
+								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;Đơn hàng Eat In mới</li></a>
 								<?php
 
 							}
@@ -258,14 +258,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Update Admin</h1>
+					<h1>Cập Nhật Admin</h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="index.php">Dashboard</a>
+							<a href="index.php">Bảng Điều Khiển</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="manage-admin.php">Update Admin</a>
+							<a class="active" href="manage-admin.php">Cập Nhật Admin</a>
 						</li>
 					</ul>
 				</div>
@@ -273,32 +273,31 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			</div>
 
 			<?php 
-        //1. Get the ID of Selected Admin
+        //1. Lấy ID của Admin đã chọn
         $id=$_GET['id'];
 
-        //2. Create SQL Query to get the details 
+        //2. Tạo truy vấn SQL để lấy chi tiết 
         $sql="SELECT * FROM tbl_admin WHERE id=$id";
 
-        //3. Execute the Query
+        //3. Thực thi truy vấn
 
         $res=mysqli_query($conn, $sql);
 
-        //Check whether the query is executed or not
+        //Kiểm tra xem truy vấn có được thực thi không
 
         if($res == true){
-            //Check whether the data is available or not
+            //Kiểm tra xem có dữ liệu không
             $count = mysqli_num_rows($res);
-            //Check whether we have admin data or not
+            //Kiểm tra xem có dữ liệu admin không
             if($count==1){
-                //Get the Details
-                //echo "Admin Available";
+                //Lấy chi tiết
                 $row=mysqli_fetch_assoc($res);
 
                 $full_name = $row['full_name'];
                 $username = $row['username'];
             }
             else{
-                //Redirect to manage admin page
+                //Chuyển hướng về trang quản lý admin
                 header('location:'.SITEURL.'manage-admin.php');
             }
         }
@@ -315,13 +314,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
         <table class="rtable">
             <tr>
-                <td>Full Name</td>
+                <td>Họ Tên</td>
                 <td>
                     <input type="text" name="full_name" value="<?php echo $full_name; ?>" id="ip2">
                 </td>
             </tr>
             <tr>
-                <td>Username</td>
+                <td>Tên Đăng Nhập</td>
                 <td>
                     <input type="text" name="username" value="<?php echo $username; ?>" id="ip2">
                 </td>
@@ -330,13 +329,11 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
             <tr>
                 <td colspan="2">
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
-                    <input type="submit" name="submit" value="Update" class="button-8" role="button">
+                    <input type="submit" name="submit" value="Cập Nhật" class="button-8" role="button">
                 </td>
             </tr>
 
         </table>
-
-
 
         </form>
 	</div>
@@ -345,17 +342,17 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 	</div>
 
 <?php 
-//Check whether the Submit button is clicked or not
+//Kiểm tra xem nút Submit có được nhấn hay không
 
 if(isset($_POST['submit'])){
     //echo "Button Clicked";
-    //Get all the values from form to update
+    //Lấy tất cả giá trị từ form để cập nhật
 
      $id = $_POST['id'];
      $full_name = $_POST['full_name'];
      $username = $_POST['username'];
 
-     //Creating SQL Query to update admin
+     //Tạo truy vấn SQL để cập nhật admin
 
      $sql = "UPDATE tbl_admin SET
      full_name = '$full_name',
@@ -363,40 +360,33 @@ if(isset($_POST['submit'])){
      WHERE id='$id'
      ";
 
-     //Executing the Query
+     //Thực thi truy vấn
 
      $res = mysqli_query($conn, $sql);
 
-     //Check whether the query is succesfully executed or not
+     //Kiểm tra xem truy vấn có thành công không
 
      if($res == true){
-         //Query executed and admin updated
-         $_SESSION['update'] = "<div class='success'>Admin Updated Successfully</div>";
+         //Truy vấn thành công và admin đã được cập nhật
+         $_SESSION['update'] = "<div class='success'>Cập Nhật Admin Thành Công</div>";
 
-         //Redirecting to Admin Panel
+         //Chuyển hướng về trang Admin Panel
 
          header('location:'.SITEURL.'manage-admin.php');
      }
 
      else{
-         //Failed to update admin
-        $_SESSION['update'] = "<div class='error'>Failed to Update Admin</div>";
+         //Cập nhật admin thất bại
+        $_SESSION['update'] = "<div class='error'>Cập Nhật Admin Thất Bại</div>";
 
-         //Redirecting to Admin Panel
+         //Chuyển hướng về trang Admin Panel
 
          header('location:'.SITEURL.'manage-admin.php');
          
      }
 
 }
-?>
-
-
-
-			
-
-
-	
+?> 
 		</main>
 		<!-- MAIN -->
 	</section>

@@ -1,7 +1,7 @@
 <?php include('../frontend/config/constants.php');
 // Bắt đầu bộ đệm đầu ra
 ob_start();
-	  //include('login-check.php');
+//include('login-check.php');
 // Kiểm tra nếu người dùng chưa đăng nhập hoặc không phải admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     // Nếu không phải admin hoặc chưa đăng nhập, chuyển hướng về trang đăng nhập
@@ -30,7 +30,7 @@ $stock_notif = "SELECT stock FROM tbl_food
 $res_stock_notif = mysqli_query($conn, $stock_notif);
 $row_stock_notif = mysqli_num_rows($res_stock_notif);
 
-//Message Notification
+//Thông báo tin nhắn
 $message_notif = "SELECT message_status FROM message
 				 WHERE message_status = 'unread'";
 $res_message_notif = mysqli_query($conn, $message_notif);
@@ -38,121 +38,45 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- My CSS -->
+	<!-- CSS của tôi -->
 	<link rel="stylesheet" href="style-admin.css">
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
 
-	<title>Robo Cafe Admin</title>
+	<title>Quản trị Robo Cafe</title>
 </head>
 <body>
 
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="index.php" class="brand">
-			<img src="../images/logo.png" width="80px" alt="">
-		</a>
-		<ul class="side-menu top">
-			<li >
-				<a href="index.php">
-					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li class="">
-				<a href="manage-admin.php">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Admin Panel</span>
-				</a>
-			</li>
-			<li>
-				<a href="manage-online-order.php">
-					<i class='bx bxs-cart'></i>
-					<span class="text">Online Orders&nbsp;</span>
-						<?php 
-					if($row_online_order_notif>0)
-					{
-						?>
-						<span class="num-ei"><?php echo $row_online_order_notif; ?></span>
-						<?php
-					}
-					else
-					{
-						?>
-						<span class=""> </span>
-						<?php
-					}
-					?>
-				</a>
-			</li>
-			<li>
-				<a href="manage-ei-order.php">
-					<i class='bx bx-qr-scan'></i>
-					<span class="text" >Eat In Orders&nbsp;&nbsp;&nbsp;
-						
-					</span>
-					<?php 
-					if($row_ei_order_notif>0)
-					{
-						?>
-						<span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
-						<?php
-					}
-					else
-					{
-						?>
-						<span class=""> </span>
-						<?php
-					}
-					?>
-					
-				</a>
-			</li>
-			<li>
-				<a href="manager-category.php">
-					<i class='bx bxs-category'></i>
-					<span class="text">Category</span>
-				</a>
-			</li>
-			<li>
-				<a href="manage-food.php">
-					<i class='bx bxs-food-menu'></i>
-					<span class="text">Food Menu</span>
-				</a>
-			</li>
-			<li class="active">
-				<a href="inventory.php">
-					<i class='bx bxs-box'></i>
-					<span class="text">Inventory</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="#">
-					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="logout.php" class="logout">
-					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
-	</section>
+        <a href="index.php" class="brand">
+            <img src="../images/logo.png" width="80px" alt="">
+        </a>
+        <ul class="side-menu top">
+            <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng điều khiển</span></a></li>
+            <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản lý Admin</span></a></li>
+            <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn hàng Online&nbsp;</span></a></li>
+            <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn hàng Ăn tại chỗ&nbsp;&nbsp;&nbsp;</span></a></li>
+            <li ><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản lý Bàn&nbsp;&nbsp;&nbsp;</span></a></li>
+            <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh mục</span></a></li>
+            <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực đơn</span></a></li>
+            <li class="active"><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho</span></a></li>
+        </ul>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Cài đặt</span></a></li>
+            <li><a href="logout.php" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Đăng xuất</span></a></li>
+        </ul>
+    </section>
 	<!-- SIDEBAR -->
-
 
 
 	<!-- CONTENT -->
@@ -163,7 +87,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			<a href="#" class="nav-link"></a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
+					<input type="search" placeholder="Tìm kiếm...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
 			</form>
@@ -201,30 +125,30 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_stock_notif>0 and $row_stock_notif !=1 )
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Items are running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Món hàng hết hàng</li></a>
 								<?php
 							}
 							else if($row_stock_notif == 1)
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Item is running out of stock</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Món hàng hết hàng</li></a>
 								<?php
 							}
 							else
 							{
-								
+								 
 							}
 							if($row_ei_order_notif>0)
 							{
 								?>
-								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;New Online Order</li></a>
+								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;Đơn hàng Online mới</li></a>
 								<?php
 
 							}
 							if($row_online_order_notif>0)
 							{
 								?>
-								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;New Eat In Order</li></a>
+								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;Đơn hàng Ăn tại chỗ mới</li></a>
 								<?php
 
 							}
@@ -259,14 +183,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Update Inventory</h1>
+					<h1>Cập nhật Kho hàng</h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="index.php">Dashboard</a>
+							<a href="index.php">Bảng điều khiển</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="inventory.php">Update Inventory</a>
+							<a class="active" href="inventory.php">Cập nhật Kho hàng</a>
 						</li>
 					</ul>
 				</div>
@@ -304,13 +228,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
         <table class="rtable">
             <tr>
-                <td>Item Name</td>
+                <td>Tên Món Hàng</td>
                 <td>
                     <input type="text" name="Item_Name" value="<?php echo $Item_Name; ?>" id="ip2">
                 </td>
             </tr>
             <tr>
-                <td>Available Stock</td>
+                <td>Số lượng còn lại</td>
                 <td>
                     <input type="text" name="stock" value="<?php echo $stock; ?>" id="ip2">
                 </td>
@@ -319,13 +243,11 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
             <tr>
                 <td colspan="2">
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
-                    <input type="submit" name="submit" value="Update" class="button-8" role="button">
+                    <input type="submit" name="submit" value="Cập nhật" class="button-8" role="button">
                 </td>
             </tr>
 
         </table>
-
-
 
         </form>
 	</div>
@@ -334,7 +256,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 	</div>
 
 <?php 
-//Check whether the Submit button is clicked or not
+// Kiểm tra xem nút Submit đã được nhấn chưa
 
 if(isset($_POST['submit'])){
 
@@ -342,7 +264,7 @@ if(isset($_POST['submit'])){
      $Item_Name = $_POST['Item_Name'];
      $stock = $_POST['stock'];
 
-     //Creating SQL Query to update admin
+     // Tạo truy vấn SQL để cập nhật kho hàng
 
      $sql = "UPDATE tbl_food SET
      title = '$Item_Name',
@@ -354,7 +276,7 @@ if(isset($_POST['submit'])){
      if($res == true)
      {
 
-         $_SESSION['update'] = "<div class='success'>Stock Updated Successfully</div>";
+         $_SESSION['update'] = "<div class='success'>Cập nhật kho hàng thành công</div>";
 
          header('location:'.SITEURL.'inventory.php');
      }
@@ -362,7 +284,7 @@ if(isset($_POST['submit'])){
      else
      {
         
-        $_SESSION['update'] = "<div class='error'>Failed to Update Stock</div>";
+        $_SESSION['update'] = "<div class='error'>Cập nhật kho hàng thất bại</div>";
 
          header('location:'.SITEURL.'inventory.php');
          
@@ -375,10 +297,7 @@ ob_end_flush();
 
 
 
-			
 
-
-	
 		</main>
 		<!-- MAIN -->
 	</section>

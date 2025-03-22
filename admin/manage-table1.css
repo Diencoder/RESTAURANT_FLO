@@ -1,0 +1,180 @@
+/* Custom styling for the form */
+body {
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+.reserve-table-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.reserve-table-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+.alert {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.head-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Đặt padding và margin cho toàn bộ trang */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Đặt tiêu đề ở đầu trang */
+.head-title h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Tạo khoảng cách cho các phần tử trong form */
+.add-table-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Cải thiện giao diện của các input trong form */
+.add-table-form input[type="text"],
+.add-table-form input[type="number"],
+.add-table-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Đặt màu cho nút thêm bàn */
+.add-table-form input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.add-table-form input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Cải thiện giao diện của link quay lại */
+.add-table-form a {
+    text-align: center;
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.add-table-form a:hover {
+    text-decoration: underline;
+}
+
+/* Đặt màu cho tiêu đề */
+h1 {
+    color: #343a40;
+}
+
+/* Cải thiện các input fields */
+input[type="text"],
+input[type="number"],
+select {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* Đặt khoảng cách cho các nút trong trang quản lý bàn */
+.table-data table td {
+    padding: 12px 15px;
+}
+
+/* Tạo khoảng cách cho các mục breadcrumb */
+.breadcrumb li {
+    display: inline-block;
+    padding-right: 5px;
+    font-size: 14px;
+}
+
+/* Đặt kiểu cho các nút trong bảng */
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-success:hover,
+.btn-danger:hover {
+    opacity: 0.8;
+}

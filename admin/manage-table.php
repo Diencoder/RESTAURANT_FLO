@@ -51,35 +51,59 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Thêm Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style-admin.css">
-    <link rel="stylesheet" href="manage-table.css">
     <link rel="icon" type="image/png" href="../images/logo.png">
-    <title>Robo Cafe Admin</title>
+    <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="style-admin.css">
+	<link rel="stylesheet" href="manage-table.css">
+
+	<link rel="icon" 
+      type="image/png" 
+      href="../images/logo.png">
+    <title>Quản Trị Đặt Bàn</title>
 </head>
 <body>
 
-<!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 <section id="sidebar">
     <a href="index.php" class="brand">
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng điều khiển</span></a></li>
-        <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản lý Admin</span></a></li>
-        <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn hàng Online&nbsp;</span></a></li>
-        <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn hàng Ăn tại chỗ&nbsp;&nbsp;&nbsp;</span></a></li>
-        <li class="active"><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản lý Bàn&nbsp;&nbsp;&nbsp;</span></a></li>
-        <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh mục</span></a></li>
-        <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực đơn</span></a></li>
-        <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho</span></a></li>
+        <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
+        <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
+            <?php if($row_online_order_notif > 0) { ?>
+                <span class="num-ei"><?php echo $row_online_order_notif; ?></span>
+            <?php } ?>
+        </a></li>
+        <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn Hàng Ăn Tại Chỗ&nbsp;&nbsp;&nbsp;</span>
+            <?php if($row_ei_order_notif > 0) { ?>
+                <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
+            <?php } ?>
+        </a></li>
+        <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
+            <?php if($row_ei_order_notif > 0) { ?>
+                <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
+            <?php } ?>
+        </a></li>
+        <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
+        <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
+        <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
+        <!-- Thêm mục Mã Giảm Giá -->
+        <li><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>
     </ul>
     <ul class="side-menu">
-        <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Cài đặt</span></a></li>
-        <li><a href="logout.php" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Đăng xuất</span></a></li>
+        <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Cài Đặt</span></a></li>
+        <li><a href="logout.php" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Đăng Xuất</span></a></li>
     </ul>
 </section>
+<!-- SIDEBAR -->
 
 <section id="content">
     <nav>

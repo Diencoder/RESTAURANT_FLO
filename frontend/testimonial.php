@@ -52,7 +52,7 @@
             <!-- Đánh giá 4 -->
             <div class="testimonial-item bg-transparent border rounded p-4">
                 <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                <p>WOW!! Ý tưởng độc đáo của Robo Cafe thật tuyệt vời. Chất lượng món ăn rất tốt, tiếp tục phát huy nhé.</p>
+                <p>WOW!! Ý tưởng độc đáo của FLO_RESTAURANT thật tuyệt vời. Chất lượng món ăn rất tốt, tiếp tục phát huy nhé.</p>
                 <div class="d-flex align-items-center">
                     <img class="img-fluid flex-shrink-0 rounded-circle" src="../images/avatar1.jpeg" style="width: 50px; height: 50px;">
                     <div class="ps-3">

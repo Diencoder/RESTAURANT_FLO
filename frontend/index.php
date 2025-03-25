@@ -277,7 +277,7 @@
             <!-- Đánh giá 2 -->
             <div class="testimonial-item bg-transparent border rounded p-4">
                 <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                <p>Tôi khá ấn tượng với ý tưởng độc đáo của họ. Xin gửi lời khen ngợi đến Robo Cafe và toàn bộ đội ngũ của họ.</p>
+                <p>Tôi khá ấn tượng với ý tưởng độc đáo của họ. Xin gửi lời khen ngợi đến FLO_RESTAURANT và toàn bộ đội ngũ của họ.</p>
                 <div class="d-flex align-items-center">
                     <img class="img-fluid flex-shrink-0 rounded-circle" src="../images/avatar1.jpeg" style="width: 50px; height: 50px;">
                     <div class="ps-3">

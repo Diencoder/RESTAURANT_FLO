@@ -19,10 +19,52 @@ $sql = "SELECT t.*, r.customer_name, r.customer_phone, r.customer_email, r.statu
         LEFT JOIN tbl_users u ON r.customer_email = u.email"; // Lấy tên khách hàng từ bảng tbl_users
 $res = mysqli_query($conn, $sql);
 
-
-
 // Kiểm tra nếu có dữ liệu
 $count = mysqli_num_rows($res);
+
+//Orders
+
+$ei_order_notif = "SELECT order_status from tbl_eipay
+					WHERE order_status='Pending' OR order_status='Processing'";
+
+$res_ei_order_notif = mysqli_query($conn, $ei_order_notif);
+
+$row_ei_order_notif = mysqli_num_rows($res_ei_order_notif);
+
+$online_order_notif = "SELECT order_status from order_manager
+					WHERE order_status='Pending'OR order_status='Processing' ";
+
+$res_online_order_notif = mysqli_query($conn, $online_order_notif);
+
+$row_online_order_notif = mysqli_num_rows($res_online_order_notif);
+
+
+// Stock Notification
+$stock_notif = "SELECT stock FROM tbl_food
+				WHERE stock<50";
+
+$res_stock_notif = mysqli_query($conn, $stock_notif);
+$row_stock_notif = mysqli_num_rows($res_stock_notif);
+
+// Revenue Generated
+$revenue = "SELECT SUM(total_amount) AS total_amount FROM order_manager
+			WHERE order_status='Delivered' ";
+$res_revenue = mysqli_query($conn, $revenue);
+$total_revenue = mysqli_fetch_array($res_revenue);
+
+//Total Orders Delivered
+
+$orders_delivered = "SELECT order_status FROM order_manager
+					 WHERE order_status='Delivered'";
+$res_orders_delivered = mysqli_query($conn, $orders_delivered);
+$total_orders_delivered = mysqli_num_rows($res_orders_delivered);
+
+//Message Notification
+$message_notif = "SELECT message_status FROM message
+				 WHERE message_status = 'unread'";
+$res_message_notif = mysqli_query($conn, $message_notif);
+$row_message_notif = mysqli_num_rows($res_message_notif);
+
 ?>
 
 <?php
@@ -51,31 +93,20 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Thêm Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style-admin.css">
+    <link rel="stylesheet" href="manage-table.css">
     <link rel="icon" type="image/png" href="../images/logo.png">
-    <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="style-admin.css">
-	<link rel="stylesheet" href="manage-table.css">
-
-	<link rel="icon" 
-      type="image/png" 
-      href="../images/logo.png">
-    <title>Quản Trị Đặt Bàn</title>
+    <title>Robo Cafe Admin</title>
 </head>
 <body>
-
-    <!-- SIDEBAR -->
-<section id="sidebar">
+	<!-- SIDEBAR -->
+    <section id="sidebar">
     <a href="index.php" class="brand">
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
         <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
@@ -87,7 +118,7 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
                 <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
         </a></li>
-        <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
+        <li  class="active" ><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
             <?php if($row_ei_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
@@ -126,7 +157,7 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
         <br>
 
         <!-- Nút chuyển sang trang thêm bàn -->
-        <a href="add-table.php" class="btn btn-primary">Thêm Bàn Mới</a>
+        <a href="/RESTAURANT_FLO/admin/add-table.php" class="button-8 mb-3" role="button">Thêm Bàn Mới</a>
 
         <br><br>
 
@@ -160,22 +191,24 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
                         <td><?php echo $status == 'Available' ? "<span style='color:green;'>Có sẵn</span>" : "<span style='color:red;'>Đã đặt</span>"; ?></td>
                         <td><?php echo $customer_name; ?></td>
                         <td>
-                            <?php if ($status == 'Available') { ?>
-                                <a href="reserve-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>" class="btn btn-success">Đặt bàn</a>
-                            <?php } else { ?>
-                                <button disabled class="btn btn-secondary">Bàn đã được đặt</button>
-                            <?php } ?>
+    <?php if ($status == 'Available') { ?>
+        <a href="reserve-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>" class="button-5" role="button">Đặt bàn</a>
+    <?php } else { ?>
+        <button disabled class="button-6" role="button">Bàn đã được đặt</button>
+    <?php } ?>
 
-                            <!-- Xóa bàn -->
-                            <a href="delete-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>&delete=true" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa bàn này?');">Xóa bàn</a>
-                            
-                            <!-- Hủy đặt bàn -->
-                            <?php if ($status == 'Reserved') { ?>
-                                <a href="manage-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt bàn?');">Hủy đặt bàn</a>
-                            <?php } else { ?>
-                                <button disabled class="btn btn-secondary"></button>
-                            <?php } ?>
-                        </td>
+    <!-- Xóa bàn -->
+    <a href="delete-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>&delete=true" class="button-7" role="button" onclick="return confirm('Bạn có chắc chắn muốn xóa bàn này?');">Xóa bàn</a>
+    
+    <!-- Hủy đặt bàn -->
+    <?php if ($status == 'Reserved') { ?>
+        <a href="manage-table.php?table_number=<?php echo $table_number; ?>&area=<?php echo $area; ?>" class="button-7" role="button" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt bàn?');">Hủy đặt bàn</a>
+    <?php } else { ?>
+        <button disabled class="btn btn-secondary"></button>
+    <?php } ?>
+</td>
+
+
                     </tr>
                 <?php } ?>
             </table>
@@ -184,7 +217,6 @@ if (isset($_GET['table_number']) && isset($_GET['area'])) {
 </section>
 
 <script src="script-admin.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

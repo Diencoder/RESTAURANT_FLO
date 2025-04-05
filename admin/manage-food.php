@@ -60,7 +60,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        <li ><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
         <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
@@ -78,7 +78,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
             <?php } ?>
         </a></li>
         <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
-        <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
+        <li class="active" ><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
         <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
         <!-- Thêm mục Mã Giảm Giá -->
         <li><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>

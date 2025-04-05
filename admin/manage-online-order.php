@@ -71,9 +71,9 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
         <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
-        <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
+        <li class="active"><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_online_order_notif; ?></span>
             <?php } ?>
@@ -290,7 +290,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
                     <td>{$total_amount}</td>
                     <td>
-                        <a href='" . SITEURL . "update-online-order.php?id={$order_id}' class='button-8' role='button'>Cập Nhật</a>
+                        <a href='" . SITEURL . "update-online-order.php?id={$order_id}' class='button-6' role='button'>Cập Nhật</a>
                     </td>
                 </tr>";
 

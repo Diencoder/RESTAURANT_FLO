@@ -77,7 +77,7 @@ include('../frontend/config/constants.php');
             // Kiểm tra xem người dùng là admin hay người dùng bình thường
             if ($_SESSION['role'] == 'admin') {
                 // Nếu là admin, chuyển hướng đến trang quản trị
-                header('Location: ' . SITEURL . 'http://localhost/flo_restaurant/admin/');
+                header('Location: ' . SITEURL . 'http://localhost/RESTAURANT_FLO/admin/');
             } else {
                 // Nếu là người dùng bình thường, chuyển hướng đến trang khách hàng
                 header('Location: ' . SITEURL . 'index.php');

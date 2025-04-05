@@ -12,6 +12,6 @@ session_unset();
 session_destroy();
 
 // Chuyển hướng về trang đăng nhập trong thư mục frontend
-header('Location: http://localhost/flo_restaurant/admin/login.php');
+header('Location: http://localhost/RESTAURANT_FLO/frontend/login.php');
 exit;
 ?>

@@ -21,6 +21,48 @@ if (isset($_GET['delete'])) {
     header("Location: manage-promotions.php");
     exit();
 }
+//Orders
+
+$ei_order_notif = "SELECT order_status from tbl_eipay
+					WHERE order_status='Pending' OR order_status='Processing'";
+
+$res_ei_order_notif = mysqli_query($conn, $ei_order_notif);
+
+$row_ei_order_notif = mysqli_num_rows($res_ei_order_notif);
+
+$online_order_notif = "SELECT order_status from order_manager
+					WHERE order_status='Pending'OR order_status='Processing' ";
+
+$res_online_order_notif = mysqli_query($conn, $online_order_notif);
+
+$row_online_order_notif = mysqli_num_rows($res_online_order_notif);
+
+
+// Stock Notification
+$stock_notif = "SELECT stock FROM tbl_food
+				WHERE stock<50";
+
+$res_stock_notif = mysqli_query($conn, $stock_notif);
+$row_stock_notif = mysqli_num_rows($res_stock_notif);
+
+// Revenue Generated
+$revenue = "SELECT SUM(total_amount) AS total_amount FROM order_manager
+			WHERE order_status='Delivered' ";
+$res_revenue = mysqli_query($conn, $revenue);
+$total_revenue = mysqli_fetch_array($res_revenue);
+
+//Total Orders Delivered
+
+$orders_delivered = "SELECT order_status FROM order_manager
+					 WHERE order_status='Delivered'";
+$res_orders_delivered = mysqli_query($conn, $orders_delivered);
+$total_orders_delivered = mysqli_num_rows($res_orders_delivered);
+
+//Message Notification
+$message_notif = "SELECT message_status FROM message
+				 WHERE message_status = 'unread'";
+$res_message_notif = mysqli_query($conn, $message_notif);
+$row_message_notif = mysqli_num_rows($res_message_notif);
 
 // Lấy tất cả mã giảm giá
 $sql = "SELECT * FROM tbl_promotions ORDER BY valid_from DESC";
@@ -32,8 +74,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Thêm Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Thêm  CSS -->
     <link rel="stylesheet" href="style-admin.css">
     <link rel="icon" type="image/png" href="../images/logo.png">
     <head>
@@ -42,21 +83,22 @@ $result = mysqli_query($conn, $sql);
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="style-admin.css">
 	<link rel="stylesheet" href="manage-table.css">
-
+	<link rel="stylesheet" href="manage-promotions.css">
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
     <title>Quản Trị Mã Giảm Giá</title>
+    
 </head>
 <body>
 
-    <!-- SIDEBAR -->
+<!-- SIDEBAR -->
 <section id="sidebar">
     <a href="index.php" class="brand">
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
         <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
@@ -68,7 +110,7 @@ $result = mysqli_query($conn, $sql);
                 <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
         </a></li>
-        <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
+        <li ><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
             <?php if($row_ei_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
@@ -77,7 +119,7 @@ $result = mysqli_query($conn, $sql);
         <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
         <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
         <!-- Thêm mục Mã Giảm Giá -->
-        <li><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>
+        <li  class="active" ><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>
     </ul>
     <ul class="side-menu">
         <li><a href="#"><i class='bx bxs-cog'></i><span class="text">Cài Đặt</span></a></li>
@@ -115,16 +157,8 @@ $result = mysqli_query($conn, $sql);
         <br>
 
         <!-- Table Quản lý mã giảm giá -->
-<div class="promotion-table">
-    <style>
-        /* Thay đổi màu nền cho hàng tiêu đề của bảng */
-        thead {
-            background-color: #3C91E6; /* Màu xanh */
-            color: white; /* Màu chữ trắng */
-        }
-    </style>
-
-    <table class="table table-striped table-bordered">
+        <div class="promotion-table">
+    <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -146,8 +180,8 @@ $result = mysqli_query($conn, $sql);
                     <td><?php echo date('d/m/Y H:i', strtotime($row['valid_from'])) . ' - ' . date('d/m/Y H:i', strtotime($row['valid_to'])); ?></td>
                     <td><?php echo $row['status']; ?></td>
                     <td>
-                        <a href="edit-promotion.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">Sửa</a>
-                        <a href="manage-promotions.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm giá này?')">Xóa</a>
+                        <a href="edit-promotion.php?id=<?php echo $row['id']; ?>" class="button-5" role="button">Sửa</a>
+                        <a href="manage-promotions.php?delete=<?php echo $row['id']; ?>" class="button-7" role="button" onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm giá này?')">Xóa</a>
                     </td>
                 </tr>
             <?php } ?>
@@ -160,7 +194,6 @@ $result = mysqli_query($conn, $sql);
 
 <!-- Bootstrap JS -->
 <script src="script-admin.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,124 @@
+/* Testimonials Section */
+.testimonials {
+    padding: 3rem 0;
+    background: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.testimonials-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.testimonials-sub-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    color: #f0ad4e;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.testimonials-main-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 2.5rem;
+    color: #343a40;
+    font-weight: 700;
+}
+
+.testimonials-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.testimonial-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.testimonials-quote {
+    font-size: 1.5rem;
+    color: #f0ad4e;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.testimonial-info {
+    flex: 1;
+}
+
+.testimonial-name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    color: #007bff;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-role {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    color: #f0ad4e;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .testimonials-list {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 items per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-list {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 items per row */
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonials-list {
+        grid-template-columns: 1fr;
+        /* 1 item per row */
+    }
+}

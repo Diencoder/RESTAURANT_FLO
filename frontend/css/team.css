@@ -1,0 +1,111 @@
+/* Team Section */
+.team {
+    padding: 3rem 0;
+    background: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.team-sub-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    color: #f0ad4e;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.team-main-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 2.5rem;
+    color: #343a40;
+    font-weight: 700;
+}
+
+.team-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.team-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.team-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.team-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem auto;
+    display: block;
+}
+
+.team-content {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.team-member-name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    color: #007bff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.team-member-role {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: #f0ad4e;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.team-member-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .team-list {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 items per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .team-list {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 items per row */
+    }
+}
+
+@media (max-width: 576px) {
+    .team-list {
+        grid-template-columns: 1fr;
+        /* 1 item per row */
+    }
+}

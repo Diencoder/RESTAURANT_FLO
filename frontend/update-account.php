@@ -28,6 +28,7 @@ if(isset($_SESSION['user'])) {
     }
 }
 
+
 include('header.php');
 ?>
 
@@ -116,5 +117,10 @@ if(isset($_POST['submit'])) {
 
 ob_end_flush(); // Kết thúc buffer sau khi mọi thao tác hoàn tất
 ?>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/update_accout.css">
 
+
+</head>
 <?php include('footer.php'); ?>

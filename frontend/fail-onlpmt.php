@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 
 <div class="container">
   <div class="brand-logo"></div>
-  <div class="brand-title">Robo Cafe</div>
+  <div class="brand-title">FLO_RESTAURANT</div>
 
 
   

@@ -72,7 +72,6 @@ if (isset($_POST['apply_discount'])) {
 
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="utf-8">
     <title>FLO_RESTAURANT</title>
@@ -81,9 +80,7 @@ if (isset($_POST['apply_discount'])) {
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link rel="icon" 
-      type="image/png" 
-      href="../images/logo.png">
+    <link rel="icon" type="image/png" href="../images/logo.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,107 +89,252 @@ if (isset($_POST['apply_discount'])) {
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
     <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/my_account.css" rel="stylesheet">
+
+   
 </head>
-
 <body>
-    <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Đang tải...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
+    <!-- Spinner Start -->
+    <div id="spinner" class="spinner">
+        <div class="spinner-circle"></div>
+    </div>
+    <!-- Spinner End -->
 
-
-        <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-                <a href="<?php echo SITEURL; ?>" class="navbar-brand p-0">
-                   <img src="../images/logo.png" alt="Logo"> 
+    <!-- Navbar & Hero Start -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container navbar-inner">
+                <a href="<?php echo SITEURL; ?>" class="navbar-logo">
+                    <img src="../images/logo.png" alt="Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
+                <button class="navbar-toggle">
+                    <i class="fa fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.php" class="nav-item nav-link">Trang Chủ</a>
-                        <a href="about.php" class="nav-item nav-link">Giới Thiệu</a>
-                        <a href="categories.php" class="nav-item nav-link">Danh Mục</a>
-                        <a href="menu.php" class="nav-item nav-link">Thực Đơn</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="team.php" class="dropdown-item active">Đội Ngũ</a>
-                                <a href="testimonial.php" class="dropdown-item">Lời Chứng Thực</a>
+                <div class="navbar-menu">
+                    <a href="index.php" class="navbar-item">Trang chủ</a>
+                    <a href="about.php" class="navbar-item">Giới thiệu</a>
+                    <a href="categories.php" class="navbar-item">Danh mục</a>
+                    <a href="menu.php" class="navbar-item">Thực đơn</a>
+                    <div class="navbar-dropdown">
+                        <a href="#" class="navbar-dropdown-toggle navbar-item">Các trang</a>
+                        <div class="navbar-dropdown-menu">
+                            <a href="team.php" class="navbar-dropdown-item">Đội ngũ</a>
+                            <a href="testimonial.php" class="navbar-dropdown-item">Lời chứng thực</a>
+                        </div>
+                    </div>
+                    <a href="contact.php" class="navbar-item">Liên hệ</a>
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        $username = $_SESSION['user'];
+                    ?>
+                        <div class="navbar-dropdown">
+                            <a href="#" class="navbar-dropdown-toggle navbar-item"><?php echo $username; ?></a>
+                            <div class="navbar-dropdown-menu">
+                                <a href="myaccount.php" class="navbar-dropdown-item">Tài khoản của tôi</a>
+                                <a href="logout.php" class="navbar-dropdown-item">Đăng xuất</a>
                             </div>
                         </div>
-                        <a href="contact.php" class="nav-item nav-link">Liên Hệ</a>
-                    </div>
-
                     <?php
-                        if(isset($_SESSION['user']))
-	                    {
-                            $username = $_SESSION['user'];
-                             ?>
-                            <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><?php echo $username; ?></a>
-                            <div class="dropdown-menu m-0">
-                               <a href="myaccount.php" class="dropdown-item">Tài Khoản Của Tôi</a>
-                               <a href="logout.php" class="dropdown-item">Đăng Xuất</a>
-                            </div>
-                            </div>
-                            <?php
-	                    }
-                        else
-                        {
-                            ?>
-                            <a href="login.php" class="nav-item nav-link">Đăng Nhập</a>
-                            <?php
-                        }
+                    } else {
                     ?>
-
-
-                     <?php
-                        $count=0;
-                        if(isset($_SESSION['cart']))
-                        {
-                            $count=count($_SESSION['cart']);
-                        }
-                    
+                        <a href="login.php" class="navbar-item">Đăng nhập</a>
+                    <?php
+                    }
                     ?>
-                    <a href="mycart.php" class="btn btn-primary py-2 px-4"><i class="fas fa-shopping-cart"></i><span> Giỏ Hàng <?php echo $count; ?></span></a>
-                </div>
-            </nav>
-
-            <div class="container-xxl py-5 bg-dark hero-header mb-1">
-                <div class="container text-center my-2 pt-4 pb-1">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Giỏ Hàng</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                            <li class="breadcrumb-item"><a href="#">Trang</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Giỏ Hàng</li>
-                        </ol>
-                    </nav>
+                    <?php
+                    $count = 0;
+                    if (isset($_SESSION['cart'])) {
+                        $count = count($_SESSION['cart']);
+                    }
+                    ?>
+                    <a href="mycart.php" class="navbar-cart">
+                        <i class="fas fa-shopping-cart"></i> Giỏ hàng (<?php echo $count; ?>)
+                    </a>
                 </div>
             </div>
+        </nav>
+        <div class="hero-header">
+            <div class="container">
+                <h1 class="hero-title animated slideInDown">Tài khoản của tôi</h1>
+                <nav class="breadcrumb">
+                    <a href="index.php" class="breadcrumb-item">Trang chủ</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">Tài khoản của tôi</span>
+                </nav>
+            </div>
         </div>
-        <!-- Navbar & Hero End -->
+    </header>
+    <!-- Navbar & Hero End -->
 
+<!-- Direct CSS Styles -->
+<style>
+        /* General Styles */
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f4f4f9;
+            padding: 40px 0;
+        }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Table Styling */
+        #cart_table {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            vertical-align: middle;
+        }
+
+        .thead-light {
+            background-color: #f8f9fa;
+        }
+
+        /* Total Price Section */
+        .col-lg-3 {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background-color: #ec971f;
+        }
+
+        .btn-link {
+            color: #007bff;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+
+        .form-check-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .text-center mt-4 {
+            margin-top: 30px;
+        }
+
+        /* Profile Section */
+        .profile-info-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .profile-detail-item input {
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            background-color: #f8f9fa;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .profile-sidebar {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .profile-menu-item a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .profile-menu-item a:hover {
+            color: #007bff;
+        }
+
+        .breadcrumb-item {
+            font-size: 16px;
+        }
+
+        .breadcrumb-item.active {
+            font-weight: bold;
+        }
+
+        .breadcrumb-separator {
+            padding: 0 8px;
+        }
+
+    </style>
         <div class="container">
     <div class="row">
         <!-- Giỏ hàng -->

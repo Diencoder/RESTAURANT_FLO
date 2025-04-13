@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <div class="container">
   <div class="brand-logo"></div>
-  <div class="brand-title">Robo Cafe</div>
+  <div class="brand-title">FLO_RESTAURANT</div>
   
   <form action="" class="inputs" method="POST" name="form1">
     <p>Thanh toán của bạn là <?php echo $amount; ?> đã thành công.</p>

@@ -33,7 +33,7 @@ $cur_random_value = rand_string(10);
 
 <div class="container">
   <div class="brand-logo"></div>
-  <div class="brand-title">ROBO CAFE</div>
+  <div class="brand-title">FLO_RESTAURANT</div>
   
   <form action="https://sandbox.aamarpay.com/index.php" class="inputs" method="POST" name="form1">
      <input type="hidden" name="store_id" value="aamarpay">

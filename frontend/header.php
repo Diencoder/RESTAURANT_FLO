@@ -51,7 +51,7 @@
             <a href="menu.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'menu') ? 'active' : ''; ?>">Thực đơn</a>
             <a href="reservation_page.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'reservation_page') ? 'active' : ''; ?>">Đặt bàn</a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link" onclick="toggleDropdown(event)">Trang</a>
+                <a href="#" class="nav-link" onclick="toggleDropdown(event)" style="text-decoration: none; color: #fff;">Trang</a>
                 <div class="dropdown-menu">
                     <a href="team.php" class="dropdown-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'team') ? 'active' : ''; ?>">Đội ngũ của chúng tôi</a>
                     <a href="testimonial.php" class="dropdown-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'testimonial') ? 'active' : ''; ?>">Lời chứng thực</a>

@@ -22,7 +22,7 @@
             <div class="about-text">
                 <h5 class="section-title">Giới Thiệu Về Chúng Tôi</h5>
                 <h1>Chào Mừng Đến Với <i class="fa fa-utensils"></i> FLO_RESTAURANT</h1>
-                <p>FLO_RESTAURANT bắt đầu hành trình của mình từ năm 2017 và đã trở thành một trong những nhà hàng nổi bật trong thành phố. Ban đầu phục vụ thức ăn nhanh tại Dhaka, chúng tôi chỉ sử dụng nguyên liệu chất lượng cao để chuẩn bị món ăn cho khách hàng quý giá. Chất lượng không bao giờ bị đánh đổi.</p>
+                <p>FLO_RESTAURANT bắt đầu hành trình của mình từ năm 2017 và đã trở thành một trong những nhà hàng nổi bật trong thành phố. Ban đầu phục vụ thức ăn nhanh tại Thành phố mang tên Bác, chúng tôi chỉ sử dụng nguyên liệu chất lượng cao để chuẩn bị món ăn cho khách hàng quý giá. Chất lượng không bao giờ bị đánh đổi.</p>
                 <p>Chúng tôi phục vụ khách hàng với những món ăn chất lượng cao và mang đến trải nghiệm ẩm thực đẳng cấp khi thưởng thức. Mục tiêu của chúng tôi là trở thành một trong những nhà hàng được đánh giá cao nhất quốc gia, phục vụ những thực khách sành ăn.</p>
                 <div class="stats">
                     <div class="stat">

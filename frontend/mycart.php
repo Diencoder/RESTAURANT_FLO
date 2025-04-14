@@ -96,7 +96,7 @@ if (isset($_POST['apply_discount'])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/my_account.css" rel="stylesheet">
-
+    <link href="css/mycart.css" rel="stylesheet">
    
 </head>
 <body>
@@ -132,15 +132,16 @@ if (isset($_POST['apply_discount'])) {
                     <?php
                     if (isset($_SESSION['user'])) {
                         $username = $_SESSION['user'];
-                    ?>
-                        <div class="navbar-dropdown">
-                            <a href="#" class="navbar-dropdown-toggle navbar-item"><?php echo $username; ?></a>
-                            <div class="navbar-dropdown-menu">
-                                <a href="myaccount.php" class="navbar-dropdown-item">Tài khoản của tôi</a>
-                                <a href="logout.php" class="navbar-dropdown-item">Đăng xuất</a>
+                        ?>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" onclick="toggleDropdown(event)" style="text-decoration: none; color: #fff;"><?php echo $username; ?></a>
+                            <div class="dropdown-menu">
+                                <a href="myaccount.php" class="dropdown-item">Tài khoản của tôi</a>
+                                <a href="logout.php" class="dropdown-item">Đăng xuất</a>
                             </div>
                         </div>
                     <?php
+            
                     } else {
                     ?>
                         <a href="login.php" class="navbar-item">Đăng nhập</a>
@@ -171,170 +172,6 @@ if (isset($_POST['apply_discount'])) {
         </div>
     </header>
     <!-- Navbar & Hero End -->
-
-<!-- Direct CSS Styles -->
-<style>
-        /* General Styles */
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #f4f4f9;
-            padding: 40px 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Table Styling */
-        #cart_table {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .table th, .table td {
-            text-align: center;
-            padding: 15px;
-            font-size: 16px;
-            vertical-align: middle;
-        }
-
-        .thead-light {
-            background-color: #f8f9fa;
-        }
-
-        /* Total Price Section */
-        .col-lg-3 {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .text-center h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .form-group label {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .form-control {
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: 0.3s ease;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            color: #fff;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-
-        .btn-warning {
-            background-color: #f0ad4e;
-            color: #fff;
-        }
-
-        .btn-warning:hover {
-            background-color: #ec971f;
-        }
-
-        .btn-link {
-            color: #007bff;
-            font-size: 14px;
-            text-decoration: none;
-        }
-
-        .btn-link:hover {
-            text-decoration: underline;
-        }
-
-        .form-check-input {
-            margin-top: 0.3rem;
-        }
-
-        .form-check-label {
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .text-center mt-4 {
-            margin-top: 30px;
-        }
-
-        /* Profile Section */
-        .profile-info-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .profile-detail-item input {
-            font-size: 16px;
-            font-weight: 500;
-            border: none;
-            background-color: #f8f9fa;
-            padding: 10px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .profile-sidebar {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .profile-menu-item a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-        }
-
-        .profile-menu-item a:hover {
-            color: #007bff;
-        }
-
-        .breadcrumb-item {
-            font-size: 16px;
-        }
-
-        .breadcrumb-item.active {
-            font-weight: bold;
-        }
-
-        .breadcrumb-separator {
-            padding: 0 8px;
-        }
-
-    </style>
         <div class="container">
     <div class="row">
         <!-- Giỏ hàng -->
@@ -556,13 +393,14 @@ if (isset($_POST['apply_discount'])) {
                 else
                 {
                     echo "<div class='container mt-4'>
-                            <div class='row'>
-                                <div class='col-md-12 text-center'>
-                                    <h3>Vui lòng đăng nhập để đặt hàng</h3>
-                                    <a href='login.php' class='btn btn-primary'>Đăng nhập</a>
-                                </div>
-                            </div>
-                        </div>";
+                    <div class='row'>
+                        <div class='col-md-12 text-center'>
+                            <h3>Vui lòng đăng nhập để đặt hàng</h3>
+                            <a href='login.php' class='btn-modern'>Đăng nhập</a>
+                        </div>
+                    </div>
+                </div>";
+            
                 }
                 ?>
             

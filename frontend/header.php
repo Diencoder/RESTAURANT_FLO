@@ -65,7 +65,7 @@
             $username = $_SESSION['user'];
         ?>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link" onclick="toggleDropdown(event)"><?php echo $username; ?></a>
+                <a href="#" class="nav-link" onclick="toggleDropdown(event)" style="text-decoration: none; color: #fff;"><?php echo $username; ?></a>
                 <div class="dropdown-menu">
                     <a href="myaccount.php" class="dropdown-item">Tài khoản của tôi</a>
                     <a href="logout.php" class="dropdown-item">Đăng xuất</a>

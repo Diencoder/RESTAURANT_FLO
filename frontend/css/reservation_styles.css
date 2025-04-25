@@ -1,0 +1,134 @@
+/* General Styling for the Table Cards */
+.table-card {
+    width: 250px;
+    /* Increased width for a more spacious layout */
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    /* Lighter border for a more subtle look */
+    border-radius: 15px;
+    /* Increased border radius for smoother edges */
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adding a subtle shadow for a floating effect */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    /* Smooth hover effect */
+}
+
+.table-card:hover {
+    transform: scale(1.05);
+    /* Slightly enlarge the card on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    /* Enhance shadow on hover */
+}
+
+/* Table Title Styling */
+.table-card h3 {
+    font-size: 24px;
+    /* Larger font size for better readability */
+    margin-bottom: 15px;
+    /* Added space below the title */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    /* Darker text for better contrast */
+}
+
+/* Table Info Styling */
+.table-card p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+    /* Slightly lighter color for table description */
+}
+
+/* Status Color Classes */
+.table-card .green {
+    color: #28a745;
+    /* Green color for available tables */
+    font-weight: bold;
+}
+
+.table-card .red {
+    color: #dc3545;
+    /* Red color for reserved or unavailable tables */
+    font-weight: bold;
+}
+
+.table-card .orange {
+    color: #fd7e14;
+    /* Orange color for tables being used or in process */
+    font-weight: bold;
+}
+
+/* Button Styling */
+.table-card .btn-reserve {
+    padding: 12px 25px;
+    /* Increased padding for more clickable buttons */
+    background-color: #fd7e14;
+    /* A vibrant orange for the button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    /* Rounded corners for the button */
+    font-size: 16px;
+    /* Increased font size for button text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.table-card .btn-reserve:hover {
+    background-color: #e36b10;
+    /* Slightly darker orange on hover */
+    transform: scale(1.05);
+    /* Slightly enlarge the button on hover */
+}
+
+/* Disabled Button Styling */
+.table-card button[disabled] {
+    background-color: #d3d3d3;
+    /* Light gray background for disabled state */
+    color: #777;
+    /* Lighter text for disabled state */
+    border: none;
+    padding: 12px 25px;
+    cursor: not-allowed;
+    font-size: 16px;
+}
+
+/* Additional Responsive Styling for Mobile */
+@media (max-width: 768px) {
+    .table-card {
+        width: 100%;
+        /* Full width on smaller screens */
+        margin: 10px 0;
+        /* Adjust margin for smaller devices */
+    }
+
+    .table-card h3 {
+        font-size: 20px;
+        /* Adjust font size for smaller screens */
+    }
+}
+
+/* Thêm style cho nút hủy đặt bàn */
+.table-card button.btn-cancel {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.table-card button.btn-cancel:hover {
+    background-color: darkred;
+}
+
+.table-card button[disabled] {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: not-allowed;
+}

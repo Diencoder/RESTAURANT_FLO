@@ -1,0 +1,156 @@
+/* Thanh điều hướng hồ sơ */
+.profile-nav .nav-link {
+    padding: 12px 20px !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: #007bff !important;
+    text-align: left !important;
+    border-radius: 30px !important;
+    transition: background-color 0.3s ease !important, transform 0.3s ease !important, box-shadow 0.3s ease !important;
+}
+
+/* Hiệu ứng khi hover vào các liên kết */
+.profile-nav .nav-link:hover {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 30px !important;
+    box-shadow: 10px 10px 20px rgba(0, 123, 255, 0.4) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Hiệu ứng khi nhấn vào các liên kết */
+.profile-nav .nav-link:active {
+    background-color: #0056b3 !important; /* Màu nền khi nhấn */
+    color: white !important; /* Màu chữ khi nhấn */
+    border-radius: 30px !important;
+}
+
+/* Các phần tử trong thanh điều hướng */
+.profile-nav .user-heading {
+    text-align: center !important;
+    padding: 20px !important;
+    background-color: #f9f9f9 !important;
+    border-radius: 10px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Avatar */
+.profile-nav .user-heading img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    border: 2px solid #28a745 !important;
+    margin-bottom: 15px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.profile-nav .user-heading img:hover {
+    transform: scale(1.1) !important;
+}
+
+/* Các liên kết trong thanh điều hướng */
+.nav-pills li a {
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: #007bff !important;
+    text-align: left !important;
+    border-radius: 30px !important;
+    transition: background-color 0.3s ease !important, box-shadow 0.3s ease !important;
+}
+
+/* Hiệu ứng hover cho các liên kết */
+.nav-pills li a:hover {
+    background-color: #007bff !important;
+    color: white !important;
+    box-shadow: 10px 10px 20px rgba(0, 123, 255, 0.4) !important;
+}
+
+/* Các thông tin tài khoản */
+.profile-info .panel {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    background-color: #ffffff !important;
+}
+
+/* Các thông tin cá nhân */
+.profile-info .bio-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border: 1px solid #007bff !important;
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+    padding: 10px !important;
+    background-color: #f1f9ff !important;
+    transition: background-color 0.3s ease !important, transform 0.3s ease !important, box-shadow 0.3s ease !important;
+}
+
+.profile-info .bio-row p {
+    margin: 0 !important;
+    font-size: 16px !important;
+    color: #333 !important;
+}
+
+/* Tạo hiệu ứng khi hover vào thông tin cá nhân */
+.profile-info .bio-row:hover {
+    background-color: #007bff !important;
+    color: white !important;
+    transform: scale(1.03) !important;
+    box-shadow: 10px 10px 20px rgba(0, 123, 255, 0.4) !important;
+}
+/* Cải thiện bảng đơn hàng */
+.table {
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    border-radius: 10px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.table th, .table td {
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 15px !important;
+    font-size: 16px !important; /* Đặt kích thước chữ dễ đọc hơn */
+    color: #333 !important; /* Chữ màu tối để dễ đọc */
+    font-weight: 600 !important; /* Làm chữ đậm hơn để nổi bật */
+    line-height: 1.5 !important; /* Tăng khoảng cách giữa các dòng */
+}
+
+/* Định dạng tiêu đề cột */
+.table th {
+    background-color: #28a745 !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 18px !important; /* Làm tiêu đề đậm và lớn hơn */
+}
+
+/* Định dạng các ô trong bảng */
+.table td {
+    background-color: #ffffff !important;
+    color: #333 !important;
+}
+
+/* Tạo hiệu ứng hover cho các hàng */
+.table-hover tbody tr:hover {
+    background-color: #e1f5fe !important;
+    cursor: pointer;
+}
+
+/* Tạo bảng với viền rõ ràng */
+.table-bordered {
+    border: 1px solid #ddd !important;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f8f8f8 !important;
+}
+
+/* Cải thiện độ tương phản cho tiêu đề bảng */
+.table thead {
+    background-color: #007bff !important;
+    color: white !important;
+}

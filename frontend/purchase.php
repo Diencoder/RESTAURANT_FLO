@@ -80,12 +80,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['purchase'])) {
 
     // Insert vào bảng aamarpay
     $query1 = "INSERT INTO `aamarpay`(`cus_name`, `amount`, `status`, `transaction_id`, `card_type`) 
-               VALUES ('$cus_name', '$amount', 'Pending', '$cur_random_value', 'Card')";
+               VALUES ('$cus_name', '$amount', 'Completed', '$cur_random_value', 'Card')";
     
     if (mysqli_query($conn, $query1)) {
         // Insert vào order_manager sau khi có transaction_id trong aamarpay
         $query2 = "INSERT INTO `order_manager`(`username`, `cus_name`, `cus_email`, `cus_add1`, `cus_city`, `cus_phone`, `payment_status`, `order_date`, `total_amount`, `transaction_id`, `order_status`) 
-                   VALUES ('$username', '$cus_name', '$cus_email', '$cus_add1', '$cus_city', '$cus_phone', 'Pending', '$order_date', '$amount', '$cur_random_value', 'Pending')";
+                   VALUES ('$username', '$cus_name', '$cus_email', '$cus_add1', '$cus_city', '$cus_phone', 'Completed', '$order_date', '$amount', '$cur_random_value', 'Pending')";
         
         if (mysqli_query($conn, $query2)) {
             $Order_Id = mysqli_insert_id($conn); 

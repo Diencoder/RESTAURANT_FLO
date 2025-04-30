@@ -23,7 +23,7 @@ if (!defined('DB_PASSWORD')) {
 }
 
 if (!defined('DB_NAME')) {
-    define('DB_NAME', 'RESTAURANT_FLO');
+    define('DB_NAME', 'FLO_RESTAURANT');
 }
 
 // Kết nối cơ sở dữ liệu

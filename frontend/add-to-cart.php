@@ -40,10 +40,6 @@ array_push($_SESSION['cart'], $_GET['food_id']);
     <!-- Libraries Stylesheet -->
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
@@ -75,15 +71,7 @@ array_push($_SESSION['cart'], $_GET['food_id']);
                         <a href="index.php" class="nav-item nav-link">Home</a>
                         <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="categories.php" class="nav-item nav-link">Categories</a>
-                        <a href="menu.php" class="nav-item nav-link ">Menu</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                
-                                <a href="team.php" class="dropdown-item">Our Team</a>
-                                <a href="testimonial.php" class="dropdown-item">Testimonial</a>
-                            </div>
-                        </div>
+                        <a href="menu.php" class="nav-item nav-link ">Menu</a>                       
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                     <a href="<?php echo SITEURL; ?>cart.php" class="btn btn-primary py-2 px-4"><i class="fas fa-shopping-cart"></i><span> Cart</span></a>

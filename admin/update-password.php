@@ -1,76 +1,49 @@
 <?php
-// Start session and include constants
 session_start();
 include('../frontend/config/constants.php');
 
-// Check if user is admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+// Kiểm tra nếu chưa đăng nhập thì về trang đăng nhập
+if (!isset($_SESSION['role']) || !isset($_SESSION['user'])) {
     header('Location: ' . SITEURL . 'login.php');
     exit;
 }
 
-// Process form submission before any output
-if (isset($_POST['submit'])) {
-    // Get data from form
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
-    $current_password = $_POST['current_password'];
-    $new_password = $_POST['new_password'];
-    $confirm_password = $_POST['confirm_password'];
+// Lấy ID từ URL hoặc session
+$id = $_GET['id'] ?? $_SESSION['user_id'] ?? '';
 
-    // Fetch user to verify current password
-    $sql = "SELECT password FROM tbl_users WHERE id = ? AND role = 'admin'";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        // Verify current password
-        if (password_verify($current_password, $row['password'])) {
-            // Check if new password matches confirm password
+// Xử lý khi người dùng gửi form đổi mật khẩu
+if (isset($_POST['submit'])) {
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $current_password = mysqli_real_escape_string($conn, md5($_POST['current_password']));
+    $new_password = mysqli_real_escape_string($conn, md5($_POST['new_password']));
+    $confirm_password = mysqli_real_escape_string($conn, md5($_POST['confirm_password']));
+
+    $sql = "SELECT * FROM tbl_users WHERE id = '$id'";
+    $res = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($res) == 1) {
+        $row = mysqli_fetch_assoc($res);
+        if ($current_password === $row['password']) {
             if ($new_password === $confirm_password) {
-                // Hash new password
-                $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
-                
-                // Update password
-                $sql2 = "UPDATE tbl_users SET password = ? WHERE id = ? AND role = 'admin'";
-                $stmt2 = mysqli_prepare($conn, $sql2);
-                mysqli_stmt_bind_param($stmt2, 'si', $hashed_new_password, $id);
-                
-                if (mysqli_stmt_execute($stmt2)) {
-                    $_SESSION['change-pwd'] = "<div class='success'>Mật khẩu đã được thay đổi thành công.</div>";
+                $update_sql = "UPDATE tbl_users SET password = '$new_password' WHERE id = '$id'";
+                $update_res = mysqli_query($conn, $update_sql);
+
+                if ($update_res) {
+                    $_SESSION['change-pwd'] = "<div class='success'>✅ Mật khẩu đã được thay đổi thành công.</div>";
                     header('Location: ' . SITEURL . 'manage-admin.php');
-                    exit();
+                    exit;
                 } else {
-                    $_SESSION['pwd-not-match'] = "<div class='error'>Không thể thay đổi mật khẩu. Vui lòng thử lại.</div>";
-                    header('Location: ' . SITEURL . 'manage-admin.php');
-                    exit();
+                    $_SESSION['change-pwd'] = "<div class='error'>❌ Lỗi khi cập nhật mật khẩu.</div>";
                 }
             } else {
-                $_SESSION['pwd-not-match'] = "<div class='error'>Mật khẩu không trùng khớp. Vui lòng thử lại.</div>";
-                header('Location: ' . SITEURL . 'manage-admin.php');
-                exit();
+                $_SESSION['change-pwd'] = "<div class='error'>❌ Mật khẩu mới và xác nhận không khớp.</div>";
             }
         } else {
-            $_SESSION['user-not-found'] = "<div class='error'>Mật khẩu hiện tại không đúng.</div>";
-            header('Location: ' . SITEURL . 'manage-admin.php');
-            exit();
+            $_SESSION['change-pwd'] = "<div class='error'>❌ Mật khẩu hiện tại không đúng.</div>";
         }
     } else {
-        $_SESSION['user-not-found'] = "<div class='error'>Không tìm thấy người dùng.</div>";
-        header('Location: ' . SITEURL . 'manage-admin.php');
-        exit();
+        $_SESSION['change-pwd'] = "<div class='error'>❌ Không tìm thấy người dùng.</div>";
     }
-    mysqli_stmt_close($stmt);
-}
-
-// Get ID from URL
-if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['id']);
-} else {
-    header('Location: ' . SITEURL . 'manage-admin.php');
-    exit;
 }
 ?>
 
@@ -92,9 +65,8 @@ if (isset($_GET['id'])) {
         </a>
         <ul class="side-menu top">
             <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
-            <li class="active"><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
+            <li class="active"><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
             <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online</span></a></li>
-            <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn Hàng Ăn Tại Chỗ</span></a></li>
             <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn</span></a></li>
             <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
             <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
@@ -132,7 +104,7 @@ if (isset($_GET['id'])) {
                     <ul class="breadcrumb">
                         <li><a href="index.php">Bảng Điều Khiển</a></li>
                         <li><i class='bx bx-chevron-right'></i></li>
-                        <li><a href="manage-admin.php">Quản Lý Admin</a></li>
+                        <li><a href="manage-admin.php">Quản Lý Người Dùng</a></li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li><a class="active" href="#">Đổi Mật Khẩu</a></li>
                     </ul>
@@ -142,24 +114,30 @@ if (isset($_GET['id'])) {
             <div class="table-data">
                 <div class="order">
                     <div class="head">
+                        <?php 
+                            if (isset($_SESSION['change-pwd'])) {
+                                echo $_SESSION['change-pwd'];
+                                unset($_SESSION['change-pwd']);
+                            }
+                        ?>
                         <form action="" method="POST">
                             <table class="tbl-30">
                                 <tr>
                                     <td>Mật khẩu hiện tại</td>
                                     <td>
-                                        <input type="password" name="current_password" id="ip2" required>
+                                        <input type="password" name="current_password" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Mật khẩu mới</td>
                                     <td>
-                                        <input type="password" name="new_password" id="ip2" required>
+                                        <input type="password" name="new_password" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Xác nhận mật khẩu</td>
                                     <td>
-                                        <input type="password" name="confirm_password" id="ip2" required>
+                                        <input type="password" name="confirm_password" required>
                                     </td>
                                 </tr>
                                 <tr>

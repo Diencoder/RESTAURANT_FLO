@@ -50,13 +50,6 @@
             <a href="categories.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'categories') ? 'active' : ''; ?>">Danh mục</a>
             <a href="menu.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'menu') ? 'active' : ''; ?>">Thực đơn</a>
             <a href="reservation_page.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'reservation_page') ? 'active' : ''; ?>">Đặt bàn</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link" onclick="toggleDropdown(event)" style="text-decoration: none; color: #fff;">Trang</a>
-                <div class="dropdown-menu">
-                    <a href="team.php" class="dropdown-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'team') ? 'active' : ''; ?>">Đội ngũ của chúng tôi</a>
-                    <a href="testimonial.php" class="dropdown-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'testimonial') ? 'active' : ''; ?>">Lời chứng thực</a>
-                </div>
-            </div>
             <a href="contact.php" class="nav-item <?php echo (basename($_SERVER['PHP_SELF'], '.php') == 'contact') ? 'active' : ''; ?>">Liên hệ</a>
         </div>
 
@@ -113,12 +106,6 @@
                         case 'reservation_page.php':
                             echo "Đặt bàn";
                             break;
-                        case 'team.php':
-                            echo "Đội ngũ của chúng tôi";
-                            break;
-                        case 'testimonial.php':
-                            echo "Lời chứng thực";
-                            break;
                         default:
                             echo "Trang chủ";
                     }
@@ -145,11 +132,7 @@
                                 echo '<li class="active">Đặt bàn</li>';
                                 break;
                             case 'team.php':
-                                echo '<li class="active">Đội ngũ của chúng tôi</li>';
-                                break;
-                            case 'testimonial.php':
-                                echo '<li class="active">Lời chứng thực</li>';
-                                break;
+                                
                         }
                         ?>
                     </ol>

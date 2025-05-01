@@ -48,11 +48,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- CSS của tôi -->
+	<!-- My CSS -->
 	<link rel="stylesheet" href="style-admin.css">
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
+	  
+
 
 	<title>Quản Trị FLO_RESTAURANT</title>
 </head>
@@ -66,15 +68,10 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
     </a>
     <ul class="side-menu top">
         <li ><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
-        <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
+        <li class="active" ><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_online_order_notif; ?></span>
-            <?php } ?>
-        </a></li>
-        <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn Hàng Ăn Tại Chỗ&nbsp;&nbsp;&nbsp;</span>
-            <?php if($row_ei_order_notif > 0) { ?>
-                <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
         </a></li>
         <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
@@ -84,7 +81,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         </a></li>
         <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
         <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
-        <li class="active"><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
+        <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
         <!-- Thêm mục Mã Giảm Giá -->
         <li><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>
     </ul>
@@ -129,12 +126,12 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 						<?php
 
 					}
-					?>
+				 ?>
 					
 				</div>
 					
 			</div>
-		<div class="notification" >
+			<div class="notification" >
 				<div class="action notif">
 				<i class='bx bxs-bell' onclick= "menuToggle();"></i>
 				<div class="notif_menu">
@@ -143,13 +140,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_stock_notif>0 and $row_stock_notif !=1 )
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng hết kho</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Món hết hàng</li></a>
 								<?php
 							}
 							else if($row_stock_notif == 1)
 							{
 								?>
-								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Mặt hàng hết kho</li></a>
+								<li><a href="inventory.php"><?php echo $row_stock_notif ?>&nbsp;Món hết hàng</li></a>
 								<?php
 							}
 							else
@@ -160,14 +157,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 							if($row_ei_order_notif>0)
 							{
 								?>
-								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;Đơn hàng Online mới</li></a>
+								<li><a href="manage-online-order.php"><?php echo $row_online_order_notif ?>&nbsp;Đơn Hàng Online Mới</li></a>
 								<?php
 
 							}
 							if($row_online_order_notif>0)
 							{
 								?>
-								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;Đơn hàng Ăn tại chỗ mới</li></a>
+								<li><a href="manage-ei-order.php"><?php echo $row_ei_order_notif ?>&nbsp;Đơn Hàng Ăn Tại Chỗ Mới</li></a>
 								<?php
 
 							}
@@ -196,6 +193,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 			</div>
 			
 		</nav>
+		<!-- NAVBAR -->
 
 		<main>
 			<div class="head-title">

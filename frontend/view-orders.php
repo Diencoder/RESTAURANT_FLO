@@ -96,14 +96,7 @@ if(isset($_SESSION['user'])) // Kiểm tra nếu người dùng đã đăng nh�
                     <a href="index.php" class="navbar-item">Trang chủ</a>
                     <a href="about.php" class="navbar-item">Giới thiệu</a>
                     <a href="categories.php" class="navbar-item">Danh mục</a>
-                    <a href="menu.php" class="navbar-item">Thực đơn</a>
-                    <div class="navbar-dropdown">
-                        <a href="#" class="navbar-dropdown-toggle navbar-item">Các trang</a>
-                        <div class="navbar-dropdown-menu">
-                            <a href="team.php" class="navbar-dropdown-item">Đội ngũ</a>
-                            <a href="testimonial.php" class="navbar-dropdown-item">Lời chứng thực</a>
-                        </div>
-                    </div>
+                    <a href="menu.php" class="navbar-item">Thực đơn</a>                  
                     <a href="contact.php" class="navbar-item">Liên hệ</a>
                     <?php
                     if (isset($_SESSION['user'])) {

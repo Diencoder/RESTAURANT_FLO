@@ -90,15 +90,10 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
     </a>
     <ul class="side-menu top">
         <li ><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
-        <li class="active" ><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Admin</span></a></li>
+        <li class="active" ><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_online_order_notif; ?></span>
-            <?php } ?>
-        </a></li>
-        <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn Hàng Ăn Tại Chỗ&nbsp;&nbsp;&nbsp;</span>
-            <?php if($row_ei_order_notif > 0) { ?>
-                <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
         </a></li>
         <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
@@ -226,14 +221,14 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Quản Lý Admin</h1>
+					<h1>Quản Lý Người Dùng</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a href="index.php">Bảng Điều Khiển</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="manage-admin.php">Quản Lý Admin</a>
+							<a class="active" href="manage-admin.php">Quản Lý Người Dùng</a>
 						</li>
 					</ul>
 				</div>
@@ -260,8 +255,9 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 
 						<?php
                     
-                        $sql = "SELECT * FROM tbl_users WHERE role = 'admin'";
-						$res = mysqli_query($conn, $sql);
+					$sql = "SELECT * FROM tbl_users";
+					$res = mysqli_query($conn, $sql);
+					
 
                         if($res == TRUE)
 						{

@@ -1,42 +1,31 @@
 <?php 
-
-//Including the constant file
-
+// Gọi file cấu hình hằng số
 include('../frontend/config/constants.php');
-//include('login-check.php');
+
+// Bắt đầu session
+session_start();
 
 // Kiểm tra nếu người dùng chưa đăng nhập hoặc không phải admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    // Nếu không phải admin hoặc chưa đăng nhập, chuyển hướng về trang đăng nhập
     header('Location: ' . SITEURL . 'login.php');
     exit;
 }
 
-
+// Lấy ID người dùng từ URL
 $id = $_GET['id'];
-$sql = "DELETE FROM tbl_users WHERE id = $id AND role = 'admin'";
 
+// Câu lệnh xóa người dùng
+$sql = "DELETE FROM tbl_users WHERE id = $id";
 
-//Execute the query
-
+// Thực thi câu lệnh
 $res = mysqli_query($conn, $sql);
 
-//Check whether the query executed succesfully or not
-
-if($res == true){
-    
-   $_SESSION['delete'] = "<div class='success'>Admin Deleted Successfully</div>";
-
-    header('location:'.SITEURL.'manage-admin.php');
+// Kiểm tra kết quả
+if ($res == true) {
+    $_SESSION['delete'] = "<div class='success'>Xóa người dùng thành công.</div>";
+    header('location:' . SITEURL . 'manage-admin.php');
+} else {
+    $_SESSION['delete'] = "<div class='error'>Xóa người dùng thất bại.</div>";
+    header('location:' . SITEURL . 'manage-admin.php');
 }
-else{
-
-    $_SESSION['delete'] = "<div class='error'>Failed to Delete Admin</div>";
-    header('location:'.SITEURL.'manage-admin.php');
-}
-
-//3. Redirect to manage admin page with message(Succuess/error)
-
-
-
 ?>

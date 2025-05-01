@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_table'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS của tôi -->
     <link rel="stylesheet" href="style-admin.css">
@@ -67,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_table'])) {
     </a>
     <ul class="side-menu top">
         <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng điều khiển</span></a></li>
-        <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản lý Admin</span></a></li>
+        <li><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn hàng Online&nbsp;</span></a></li>
         <li><a href="manage-ei-order.php"><i class='bx bx-qr-scan'></i><span class="text">Đơn hàng Ăn tại chỗ&nbsp;&nbsp;&nbsp;</span></a></li>
         <li class="active"><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản lý Bàn&nbsp;&nbsp;&nbsp;</span></a></li>
@@ -134,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_table'])) {
     </section>
 
     <script src="script-admin.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  
 </body>
 </html>

@@ -191,7 +191,7 @@ if(isset($_SESSION['user'])) // Kiểm tra nếu người dùng đã đăng nh�
                             <th>Tình Trạng Đơn Hàng</th>
                             <th>Tổng Tiền</th>
                             <th>Thông Tin Sản Phẩm</th>
-                            <th>Đánh Giá</th> <!-- Cột đánh giá thêm -->
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -279,43 +279,6 @@ if(isset($_SESSION['user'])) // Kiểm tra nếu người dùng đã đăng nh�
 
                         echo "</tbody></table></td>"; // Cột sản phẩm đóng lại
 
-                        // Cột đánh giá
-                        echo "<td>";
-
-                        // Kiểm tra trạng thái đơn hàng và cho phép đánh giá khi đơn hàng đã "Delivered"
-                        if ($order_status == 'Delivered') {
-                            // Kiểm tra xem đơn hàng đã có đánh giá chưa
-                            $review_query = "SELECT * FROM tbl_reviews WHERE order_id = '$order_id' AND food_id IS NOT NULL";
-                            $review_result = mysqli_query($conn, $review_query);
-                            $existing_review = mysqli_fetch_assoc($review_result);
-
-                            if (!$existing_review) {
-                                // Nếu chưa có đánh giá, hiển thị form đánh giá
-                                echo "
-                                <form action='submit_review.php' method='POST'>
-                                    <input type='hidden' name='order_id' value='{$order_id}'>
-                                    <label for='rating'>Đánh Giá:</label>
-                                    <select name='rating' required>
-                                        <option value='1'>1 sao</option>
-                                        <option value='2'>2 sao</option>
-                                        <option value='3'>3 sao</option>
-                                        <option value='4'>4 sao</option>
-                                        <option value='5'>5 sao</option>
-                                    </select><br><br>
-
-                                    <label for='review_text'>Bình luận:</label><br>
-                                    <textarea name='review_text' placeholder='Nhập bình luận của bạn...' required></textarea><br><br>
-
-                                    <button type='submit' style='background-color: green; color: white; border: none; padding: 10px 20px;'>Gửi Đánh Giá</button>
-                                </form>";
-                            } else {
-                                echo "<p style='color: red; font-weight: bold;'>Đơn hàng này đã có đánh giá.</p>";
-                            }
-                        } else {
-                            echo "<p>Đánh giá không khả dụng vì đơn hàng chưa được giao.</p>";
-                        }
-
-                        echo "</td></tr>";
                     }
                     ?>
                     </tbody>

@@ -111,66 +111,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['purchase'])) {
                     // Cập nhật số lượng sản phẩm trong kho
                     $update_quantity_query = "UPDATE `tbl_food` SET stock = stock - $Quantity WHERE title = '$Item_Name'";
                     mysqli_query($conn, $update_quantity_query);
-                    // Chèn vào bảng tbl_order_history
-                $food_id_query = "SELECT id FROM tbl_food WHERE title = '$Item_Name' LIMIT 1";
-                $food_id_result = mysqli_query($conn, $food_id_query);
-                $food_id_row = mysqli_fetch_assoc($food_id_result);
-                $food_id = $food_id_row['id'];  // Lấy ID món ăn từ bảng tbl_food
-
-                // Insert vào bảng tbl_order_history
-                $order_history_query = "INSERT INTO tbl_order_history (user_id, food_id, order_count, last_order_date) 
-                                         VALUES ((SELECT id FROM tbl_users WHERE username = '$username'), '$food_id', '$Quantity', NOW())";
-                mysqli_query($conn, $order_history_query);
                 }
 
                 // Xóa giỏ hàng sau khi thanh toán thành công
                 unset($_SESSION['cart']);
                 unset($_SESSION['discount_amount']);
-unset($_SESSION['total_after_discount']);
-                // Chuyển hướng đến trang thanh toán của Aamarpay
-                ?>
-                <form action="https://sandbox.aamarpay.com/index.php" class="inputs" method="POST" name="form1" id="form1">
-                    <input type="hidden" name="store_id" value="aamarpay">
-                    <input type="hidden" name="signature_key" value="28c78bb1f45112f5d40b956fe104645a">
-                    <input type="hidden" name="tran_id" value="<?php echo $cur_random_value; ?>">
-                    <input type="hidden" name="amount" value="<?php echo $amount; ?>">
-                    <input type="hidden" name="currency" value="BDT">
-                    <input type="hidden" name="cus_name" value="<?php echo $cus_name; ?>">
-                    <input type="hidden" name="cus_email" value="<?php echo $cus_email; ?>">
-                    <input type="hidden" name="cus_add1" value="<?php echo $cus_add1; ?>">
-                    <input type="hidden" name="cus_add2" value="Dhaka">
-                    <input type="hidden" name="cus_city" value="<?php echo $cus_city; ?>">
-                    <input type="hidden" name="cus_state" value="Dhaka">
-                    <input type="hidden" name="cus_postcode" value="1206">
-                    <input type="hidden" name="cus_country" value="Bangladesh">
-                    <input type="hidden" name="cus_phone" value="<?php echo $cus_phone; ?>">
-                    <input type="hidden" name="cus_fax" value="010000000">
-                    <input type="hidden" name="desc" value="Products Name Payment">
-                    <input type="hidden" name="success_url" value="<?php echo SITEURL; ?>success-onlpmt.php">
-                    <input type="hidden" name="fail_url" value="<?php echo SITEURL; ?>fail-onlpmt.php">
-                    <input type="hidden" name="cancel_url" value="<?php echo SITEURL; ?>cancel-onlpmt.php">
+                unset($_SESSION['total_after_discount']);
 
-                    <button type="submit" name="submit" value="Pay Now"></button>
-                </form>
-            
-                <?php
+                // Chuyển hướng về trang menu.php ngay sau khi thanh toán thành công
+echo "<script>
+alert('Thanh toán thành công!');
+window.location.href = 'http://localhost/RESTAURANT_FLO/frontend/menu.php';  // Chuyển hướng đến menu.php
+</script>";
+
             } else {
                 echo "<script>alert('SQL Query Prepare Error'); window.location.href='mycart.php';</script>";
             }
         } else {
             echo "<script>alert('SQL Error'); window.location.href='mycart.php';</script>";
         }
-    } else {
-        echo "<script>alert('Error inserting into aamarpay'); window.location.href='mycart.php';</script>";
-    }
+    } 
 }
 ?>
-
-<script>            
-    document.addEventListener("DOMContentLoaded", function(event) {
-        document.createElement('form').submit.call(document.getElementById('form1'));
-    });         
-</script>
-
-</body>
-</html>

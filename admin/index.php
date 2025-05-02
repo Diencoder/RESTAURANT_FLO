@@ -383,7 +383,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
   
   <div class="card-stock4">
   <div class="card_image">
-    <a href=""><img src="../images/folder2.png" /></a>
+  <a href="manage-food.php"><img src="../images/folder2.png" /></a>
     </div>
   <div class="card_title title-white">
 	  <p><?php echo $row_item; ?></p>

@@ -44,16 +44,13 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<!-- My CSS -->
 	<link rel="stylesheet" href="style-admin.css">
+	<link rel="stylesheet" href="manage-table.css">
+
 	<link rel="icon" 
       type="image/png" 
       href="../images/logo.png">
-	  
-
 
 	<title>Quản Trị FLO_RESTAURANT</title>
 </head>
@@ -66,22 +63,35 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
         <img src="../images/logo.png" width="80px" alt="">
     </a>
     <ul class="side-menu top">
-        <li ><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
-        <li class="active" ><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
+        <li><a href="index.php"><i class='bx bxs-dashboard'></i><span class="text">Bảng Điều Khiển</span></a></li>
+        
+        <!-- Quản lý Người Dùng -->
+        <li class="<?php echo (basename($_SERVER['PHP_SELF']) == 'manage-admin.php') ? 'active' : ''; ?>"><a href="manage-admin.php"><i class='bx bxs-group'></i><span class="text">Quản Lý Người Dùng</span></a></li>
+
+        <!-- Đơn Hàng Online -->
         <li><a href="manage-online-order.php"><i class='bx bxs-cart'></i><span class="text">Đơn Hàng Online&nbsp;</span>
             <?php if($row_online_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_online_order_notif; ?></span>
             <?php } ?>
         </a></li>
+
+        <!-- Quản lý Bàn -->
         <li><a href="manage-table.php"><i class='bx bx-table'></i><span class="text">Quản Lý Bàn&nbsp;&nbsp;&nbsp;</span>
             <?php if($row_ei_order_notif > 0) { ?>
                 <span class="num-ei"><?php echo $row_ei_order_notif; ?></span>
             <?php } ?>
         </a></li>
-        <li><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
+
+        <!-- Danh Mục (thêm active vào mục này) -->
+        <li class="<?php echo (basename($_SERVER['PHP_SELF']) == 'manage-category.php') ? 'active' : ''; ?>"><a href="manage-category.php"><i class='bx bxs-category'></i><span class="text">Danh Mục</span></a></li>
+
+        <!-- Thực Đơn -->
         <li><a href="manage-food.php"><i class='bx bxs-food-menu'></i><span class="text">Thực Đơn</span></a></li>
+
+        <!-- Kho Hàng -->
         <li><a href="inventory.php"><i class='bx bxs-box'></i><span class="text">Kho Hàng</span></a></li>
-        <!-- Thêm mục Mã Giảm Giá -->
+
+        <!-- Mã Giảm Giá -->
         <li><a href="manage-promotions.php"><i class='bx bxs-gift'></i><span class="text">Mã Giảm Giá</span></a></li>
     </ul>
     <ul class="side-menu">
@@ -90,6 +100,7 @@ $row_message_notif = mysqli_num_rows($res_message_notif);
     </ul>
 </section>
 <!-- SIDEBAR -->
+
 
 
 

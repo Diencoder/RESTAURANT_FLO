@@ -53,72 +53,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_promotion'])) {
 </head>
 <body>
 
-    <section id="content">
-        <main class="container mt-5">
-            <div class="head-title">
-                <h1 class="mb-4">Thêm Mã Giảm Giá</h1>
-            </div>
+<section id="content">
+    <main class="container mt-5">
+        <div class="head-title">
+            <h1>Thêm Mã Giảm Giá</h1>
+        </div>
 
-            <div class="add-promotion-form">
-                <!-- Thông báo thành công và lỗi -->
-                <?php
-                if (isset($_SESSION['add'])) {
-                    echo $_SESSION['add'];
-                    unset($_SESSION['add']);
-                }
-                if (isset($_SESSION['add_error'])) {
-                    echo $_SESSION['add_error'];
-                    unset($_SESSION['add_error']);
-                }
-                ?>
+        <!-- Thông báo thành công và lỗi -->
+        <?php
+        if (isset($_SESSION['add'])) {
+            echo $_SESSION['add'];
+            unset($_SESSION['add']);
+        }
+        if (isset($_SESSION['add_error'])) {
+            echo $_SESSION['add_error'];
+            unset($_SESSION['add_error']);
+        }
+        ?>
 
-                <!-- Form Thêm Mã Giảm Giá -->
-                <form method="POST" action="add-promotion.php">
-                    <div class="mb-3">
-                        <label for="promo_code" class="form-label">Mã Giảm Giá:</label>
-                        <input type="text" name="promo_code" id="promo_code" class="form-control" required>
-                    </div>
+        <div class="add-promotion-form">
+            <!-- Form Thêm Mã Giảm Giá -->
+            <form method="POST" action="add-promotion.php">
+                <div class="mb-3">
+                    <label for="promo_code" class="form-label">Mã Giảm Giá:</label>
+                    <input type="text" name="promo_code" id="promo_code" class="input-field" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Mô Tả:</label>
-                        <textarea name="description" id="description" class="form-control" required></textarea>
-                    </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Mô Tả:</label>
+                    <textarea name="description" id="description" class="input-field" required></textarea>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="discount_percent" class="form-label">Giảm Giá Theo %:</label>
-                        <input type="number" name="discount_percent" id="discount_percent" class="form-control" step="0.01">
-                    </div>
+                <div class="mb-3">
+                    <label for="discount_percent" class="form-label">Giảm Giá Theo %:</label>
+                    <input type="number" name="discount_percent" id="discount_percent" class="input-field" step="0.01">
+                </div>
 
-                    <div class="mb-3">
-                        <label for="discount_amount" class="form-label">Giảm Giá Theo Số Tiền:</label>
-                        <input type="number" name="discount_amount" id="discount_amount" class="form-control" step="0.01">
-                    </div>
+                <div class="mb-3">
+                    <label for="discount_amount" class="form-label">Giảm Giá Theo Số Tiền:</label>
+                    <input type="number" name="discount_amount" id="discount_amount" class="input-field" step="0.01">
+                </div>
 
-                    <div class="mb-3">
-                        <label for="valid_from" class="form-label">Thời Gian Bắt Đầu:</label>
-                        <input type="datetime-local" name="valid_from" id="valid_from" class="form-control" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="valid_from" class="form-label">Thời Gian Bắt Đầu:</label>
+                    <input type="datetime-local" name="valid_from" id="valid_from" class="input-field" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="valid_to" class="form-label">Thời Gian Kết Thúc:</label>
-                        <input type="datetime-local" name="valid_to" id="valid_to" class="form-control" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="valid_to" class="form-label">Thời Gian Kết Thúc:</label>
+                    <input type="datetime-local" name="valid_to" id="valid_to" class="input-field" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Trạng Thái:</label>
-                        <select name="status" id="status" class="form-control" required>
-                            <option value="Active">Active</option>
-                            <option value="Expired">Expired</option>
-                            <option value="Disabled">Disabled</option>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Trạng Thái:</label>
+                    <select name="status" id="status" class="input-field" required>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Disabled">Disabled</option>
+                    </select>
+                </div>
 
-                    <button type="submit" name="add_promotion" class="btn btn-success">Thêm Mã Giảm Giá</button>
-                    <a href="manage-promotions.php" class="btn btn-secondary ms-3">Quay lại</a>
-                </form>
-            </div>
-        </main>
-    </section>
+                <button type="submit" name="add_promotion" class="button-5">Thêm Mã Giảm Giá</button>
+                <a href="manage-promotions.php" class="button-7">Quay lại</a>
+            </form>
+        </div>
+    </main>
+</section>
 
 </body>
 </html>

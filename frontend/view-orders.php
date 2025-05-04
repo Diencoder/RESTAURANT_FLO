@@ -197,90 +197,93 @@ if(isset($_SESSION['user'])) // Kiểm tra nếu người dùng đã đăng nh�
                     <tbody>
 
                     <?php
-                    // Lấy thông tin đơn hàng của người dùng
-                    $order_query = "SELECT * FROM `order_manager` WHERE username = '$username' ORDER BY order_id DESC";
-                    $order_result = mysqli_query($conn, $order_query);
+// Lấy thông tin đơn hàng của người dùng
+$order_query = "SELECT * FROM `order_manager` WHERE username = '$username' ORDER BY order_id DESC";
+$order_result = mysqli_query($conn, $order_query);
 
-                    if (!$order_result) {
-                        die('Error in query: ' . mysqli_error($conn)); 
-                    }
+if (!$order_result) {
+    die('Error in query: ' . mysqli_error($conn)); 
+}
 
-                    while ($order_fetch = mysqli_fetch_assoc($order_result)) {
-                        $order_id = $order_fetch['order_id'];
-                        $payment_status = $order_fetch['payment_status'];
-                        $order_status = $order_fetch['order_status'];
-                        $total_amount = $order_fetch['total_amount'];
+while ($order_fetch = mysqli_fetch_assoc($order_result)) {
+    $order_id = $order_fetch['order_id'];
+    $payment_status = $order_fetch['payment_status'];
+    $order_status = $order_fetch['order_status'];
+    $total_amount = $order_fetch['total_amount'];
 
-                        // Lấy thông tin giảm giá (nếu có) cho mỗi đơn hàng riêng biệt
-                        $final_total = $total_amount; // Bắt đầu với tổng số tiền gốc
-                        if (isset($order_fetch['discount']) && $order_fetch['discount'] > 0) {
-                            $final_total -= $order_fetch['discount']; // Áp dụng giảm giá cho đơn hàng này
-                        }
+    // Lấy thông tin giảm giá (nếu có) cho mỗi đơn hàng riêng biệt
+    $final_total = $total_amount; // Bắt đầu với tổng số tiền gốc
+    if (isset($order_fetch['discount']) && $order_fetch['discount'] > 0) {
+        // Áp dụng giảm giá cho đơn hàng này, nhưng không thay đổi giá của món ăn
+        $final_total -= $order_fetch['discount']; // Áp dụng giảm giá cho tổng tiền của đơn hàng
+    }
 
-                        echo "
-                        <tr>
-                            <td>{$order_id}</td>
-                            <td>";
+    echo "
+    <tr>
+        <td>{$order_id}</td>
+        <td>";
 
-                        // Hiển thị tình trạng thanh toán
-                        if ($payment_status == "successful") {
-                            echo "<span class='badge bg-success'>{$payment_status}</span>";
-                        } elseif ($payment_status == "pending") {
-                            echo "<span class='badge bg-warning'>{$payment_status}</span>";
-                        } else {
-                            echo "<span class='badge bg-danger'>{$payment_status}</span>";
-                        }
+    // Hiển thị tình trạng thanh toán
+    if ($payment_status == "successful") {
+        echo "<span class='badge bg-success'>{$payment_status}</span>";
+    } elseif ($payment_status == "pending") {
+        echo "<span class='badge bg-warning'>{$payment_status}</span>";
+    } else {
+        echo "<span class='badge bg-danger'>{$payment_status}</span>";
+    }
 
-                        echo "</td><td>";
+    echo "</td><td>";
 
-                        // Hiển thị tình trạng đơn hàng
-                        if ($order_status == "completed") {
-                            echo "<span class='badge bg-success'>{$order_status}</span>";
-                        } elseif ($order_status == "pending") {
-                            echo "<span class='badge bg-warning'>{$order_status}</span>";
-                        } else {
-                            echo "<span class='badge bg-danger'>{$order_status}</span>";
-                        }
+    // Hiển thị tình trạng đơn hàng
+    if ($order_status == "completed") {
+        echo "<span class='badge bg-success'>{$order_status}</span>";
+    } elseif ($order_status == "pending") {
+        echo "<span class='badge bg-warning'>{$order_status}</span>";
+    } else {
+        echo "<span class='badge bg-danger'>{$order_status}</span>";
+    }
 
-                        echo "</td>
-                            <td class='total-price'>{$final_total} VND</td>";
+    echo "</td>
+        <td class='total-price'>{$final_total} VND</td>";
 
-                        // Lấy thông tin chi tiết đơn hàng
-                        $order_details_query = "SELECT online_orders_new.*, tbl_food.id AS food_id FROM `online_orders_new` 
-                                                JOIN tbl_food ON online_orders_new.item_name = tbl_food.title 
-                                                WHERE order_id = '{$order_fetch['order_id']}'";
-                        $order_details_result = mysqli_query($conn, $order_details_query);
+    // Lấy thông tin chi tiết đơn hàng
+    $order_details_query = "SELECT online_orders_new.*, tbl_food.id AS food_id, tbl_food.price AS food_price 
+                            FROM `online_orders_new` 
+                            JOIN tbl_food ON online_orders_new.item_name = tbl_food.title 
+                            WHERE order_id = '{$order_fetch['order_id']}'";
+    $order_details_result = mysqli_query($conn, $order_details_query);
 
-                        if (!$order_details_result) {
-                            die('Error in query: ' . mysqli_error($conn)); 
-                        }
+    if (!$order_details_result) {
+        die('Error in query: ' . mysqli_error($conn)); 
+    }
 
-                        // Tạo cột thông tin sản phẩm
-                        echo "<td><table class='table'>
-                                <thead>
-                                    <tr>
-                                        <th>ID Sản Phẩm</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>";
+    // Tạo cột thông tin sản phẩm
+    echo "<td><table class='table'>
+            <thead>
+                <tr>
+                    <th>ID Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                </tr>
+            </thead>
+            <tbody>";
 
-                        while ($order_details = mysqli_fetch_assoc($order_details_result)) {
-                            echo "
-                            <tr>
-                                <td>{$order_details['food_id']}</td> <!-- Hiển thị ID sản phẩm từ bảng tbl_food -->
-                                <td>{$order_details['item_name']}</td>
-                                <td>{$order_details['price']} VND</td>
-                                <td>{$order_details['quantity']}</td>
-                            </tr>";
-                        }
+    while ($order_details = mysqli_fetch_assoc($order_details_result)) {
+        echo "
+        <tr>
+            <td>{$order_details['food_id']}</td> <!-- Hiển thị ID sản phẩm từ bảng tbl_food -->
+            <td>{$order_details['item_name']}</td>
+            <td>{$order_details['food_price']} VND</td> <!-- Hiển thị giá của món ăn từ bảng tbl_food -->
+            <td>{$order_details['quantity']}</td>
+        </tr>";
+    }
 
-                        echo "</tbody></table></td>"; // Cột sản phẩm đóng lại
+    echo "</tbody></table></td>"; // Cột sản phẩm đóng lại
+}
+?>
 
-                    }
-                    ?>
+
                     </tbody>
                 </table>
             </div>

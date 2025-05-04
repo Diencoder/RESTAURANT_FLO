@@ -47,6 +47,11 @@ if (isset($_POST['apply_discount'])) {
                 $discount_amount = $row['discount_amount'];
             }
 
+            // Đảm bảo không giảm giá quá nhiều đến mức tổng tiền giỏ hàng trở thành âm
+            if ($discount_amount > $total_amount) {
+                $discount_amount = $total_amount;  // Giới hạn giảm giá không vượt quá tổng tiền giỏ hàng
+            }
+
             // Cập nhật tổng tiền sau giảm giá
             $total_after_discount = $total_amount - $discount_amount;
 
@@ -59,10 +64,12 @@ if (isset($_POST['apply_discount'])) {
             unset($_SESSION['discount_amount']);
             unset($_SESSION['total_after_discount']);
         }
+
         // Đóng statement để giải phóng bộ nhớ
         mysqli_stmt_close($stmt);
     }
 }
+
 
 
 
@@ -167,10 +174,9 @@ if (isset($_POST['apply_discount'])) {
     <!-- Navbar & Hero End -->
 
 
-        <div class="container">
+    <div class="container">
     <div class="row">
-        <!-- Giỏ hàng -->
-        <div class="col-lg-9 table-responsive">
+                <div class="col-lg-9 table-responsive">
             <table class="table table-bordered table-hover" id="cart_table">
                 <thead class="thead-light text-center">
                     <tr>
@@ -183,69 +189,73 @@ if (isset($_POST['apply_discount'])) {
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <?php 
-                    $item_price = 0;
-                    $total_amount = 0;
+                    <?php
+                    // Khởi tạo lại biến total_amount để tính lại tổng dựa trên session['cart']
+                    // Lưu ý: Đoạn code phía trên đã tính total_amount rồi, bạn có thể dùng biến đó.
+                    // Tuy nhiên, nếu có update giỏ hàng qua submit form, thì phần này sẽ chạy lại
+                    $total_amount_gross = 0; // Dùng tên biến rõ ràng hơn cho tổng ban đầu
 
                     if (isset($_SESSION['cart'])) {
                         foreach ($_SESSION['cart'] as $key => $value) {
-                            $item_price = $value['Price'] * $value['Quantity'];
-                            $total_amount = $total_amount + $item_price;
+                            $item_price_calculated = $value['Price'] * $value['Quantity']; // Tên biến rõ hơn
+                            $total_amount_gross += $item_price_calculated; // Cộng dồn vào tổng ban đầu
 
                             $sn = $key + 1;
 
                             echo "
                             <tr>
-                                <td>$sn</td>
-                                <td>$value[Item_Name]</td>
-                                <td>$value[Price]<input type='hidden' class='iprice' value='$value[Price]'></td>
+                                <td>{$sn}</td>
+                                <td>" . htmlspecialchars($value['Item_Name']) . "</td>
+                                <td>" . number_format($value['Price'], 2, '.', ',') . "<input type='hidden' class='iprice' value='{$value['Price']}'></td>
                                 <td>
                                     <form action='manage-cart.php' method='POST'>
-                                        <input class='text-center iquantity form-control' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='$value[Quantity]' min='1' max='20'>
-                                        <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                                        <input class='text-center iquantity form-control' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='{$value['Quantity']}' min='1' max='20'>
+                                        <input type='hidden' name='Item_Name' value='" . htmlspecialchars($value['Item_Name']) . "'>
                                     </form>
                                 </td>
-                                <td class='itotal'>$item_price VND</td>
+                                <td class='itotal'>" . number_format($item_price_calculated, 2, '.', ',') . " VND</td>
                                 <td>
                                     <form action='manage-cart.php' method='POST'>
                                         <button name='Remove_Item' class='btn btn-danger btn-sm'>XÓA</button>
-                                        <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                                        <input type='hidden' name='Item_Name' value='" . htmlspecialchars($value['Item_Name']) . "'>
                                     </form>
                                 </td>
                             </tr>";
                         }
+                    } else {
+                        // Hiển thị thông báo giỏ hàng trống nếu không có sản phẩm
+                        echo "<tr><td colspan='6' class='text-center'>Giỏ hàng của bạn đang trống.</td></tr>";
                     }
                     ?>
                 </tbody>
             </table>
-        </div>  
+        </div>
 
-        <!-- Tổng tiền và mã giảm giá -->
-        <div class="col-lg-3">
+                <div class="col-lg-3">
             <div class="border bg-light rounded p-4">
                 <h4 class="text-center">Tổng tiền</h4>
-                <h2 class="text-center" id="gtotal"><?php echo $total_amount; ?> VND</h2>
+                                <h2 class="text-center" id="gtotal"><?php echo number_format($total_amount_gross, 2, '.', ','); ?> VND</h2>
                 <br>
 
-                <!-- Form nhập mã giảm giá -->
-                <form action="" method="POST">
+                                                <form action="" method="POST">
                     <div class="form-group">
                         <label for="promo_code">Nhập mã giảm giá:</label>
-                        <input type="text" name="promo_code" id="promo_code" class="form-control" placeholder="Nhập mã giảm giá">
+                                                <input type="text" name="promo_code" id="promo_code" class="form-control" placeholder="Nhập mã giảm giá" value="<?php echo isset($_POST['promo_code']) ? htmlspecialchars($_POST['promo_code']) : ''; ?>">
                         <button type="submit" class="btn btn-secondary mt-2" name="apply_discount">Áp dụng</button>
                     </div>
                 </form>
 
-                <!-- Hiển thị số tiền giảm giá -->
-                <div class="form-group">
+                                <div class="form-group">
                     <label for="discount_amount">Giảm giá:</label>
-                    <input type="text" id="discount_amount" class="form-control" value="<?php echo isset($_SESSION['discount_amount']) ? $_SESSION['discount_amount'] . " VND" : "0 VND"; ?>" readonly>
+                    <input type="text" id="discount_amount" class="form-control" value="<?php echo isset($_SESSION['discount_amount']) ? number_format($_SESSION['discount_amount'], 2, '.', ',') . " VND" : "0.00 VND"; ?>" readonly>
                 </div>
 
-                <!-- Hiển thị tổng tiền sau khi áp dụng mã giảm giá -->
-                <div class="form-group">
+                                <div class="form-group">
                     <label for="total_after_discount">Tổng tiền sau giảm giá:</label>
-                    <input type="text" id="total_after_discount" class="form-control" value="<?php echo isset($_SESSION['total_after_discount']) ? $_SESSION['total_after_discount'] . " VND" : $total_amount . " VND"; ?>" readonly>
+                                        <?php
+                        $final_display_total = isset($_SESSION['total_after_discount']) ? $_SESSION['total_after_discount'] : $total_amount_gross;
+                    ?>
+                    <input type="text" id="total_after_discount" class="form-control" value="<?php echo number_format($final_display_total, 2, '.', ',') . " VND"; ?>" readonly>
                 </div>
             </div>
         </div>
@@ -410,24 +420,45 @@ if (isset($_POST['apply_discount'])) {
     <?php include('footer.php'); ?>
 
     <script>
-        var gt=0;
-        var iprice=document.getElementsByClassName('iprice');
-        var iquantity=document.getElementsByClassName('iquantity');
-        var itotal=document.getElementsByClassName('itotal');
-        var igtotal=document.getElementById('gtotal');
+        var gt = 0; // Biến lưu tổng cộng toàn bộ giỏ hàng dưới dạng số
+
+        // Lấy các phần tử DOM
+        var iprice = document.getElementsByClassName('iprice');
+        var iquantity = document.getElementsByClassName('iquantity');
+        var itotal = document.getElementsByClassName('itotal');
+        var igtotal = document.getElementById('gtotal'); // Phần tử hiển thị tổng cộng lớn
 
         function subTotal()
         {
-            gt=0;
-            for(i=0;i<iprice.length;i++)
-            {
-                itotal[i].innerText=(iprice[i].value)*(iquantity[i].value);
+            gt = 0; // Đặt lại tổng cộng về 0 trước khi tính toán lại
 
-                gt=gt+(iprice[i].value)*(iquantity[i].value);
+            for (var i = 0; i < iprice.length; i++)
+            {
+                // Lấy giá trị giá và số lượng, đảm bảo chúng là số
+                var itemPriceValue = parseFloat(iprice[i].value); // Chuyển giá trị giá sang kiểu số thực
+                var itemQuantityValue = parseInt(iquantity[i].value); // Chuyển giá trị số lượng sang kiểu số nguyên
+
+                // Tính tổng tiền cho mặt hàng hiện tại
+                var itemTotalValue = itemPriceValue * itemQuantityValue;
+
+                // Cập nhật hiển thị tổng tiền cho từng mặt hàng
+                // Sử dụng toFixed(2) để định dạng số có 2 chữ số thập phân
+                itotal[i].innerText = itemTotalValue.toFixed(2) + " VND";
+
+                // Cộng tổng tiền của mặt hàng hiện tại vào tổng cộng toàn bộ giỏ hàng
+                gt += itemTotalValue; // Cộng số, không phải chuỗi
+
+                
             }
-            gtotal.innerText=gt;
+
+            // Cập nhật hiển thị tổng cộng toàn bộ giỏ hàng
+            // Sử dụng toFixed(2) để định dạng số có 2 chữ số thập phân
+            igtotal.innerText = gt.toFixed(2) + " VND";
+
+         
         }
 
+        // Gọi hàm subTotal() khi trang tải xong để tính và hiển thị tổng ban đầu
         subTotal();
 
 

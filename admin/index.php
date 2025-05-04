@@ -8,65 +8,43 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
 ?>
 <?php 
 
-//Stats
-
-$sales_by_hour = "SELECT HOUR(pay_time) as hname,
-					sum(amount) as total_sales
-					FROM aamarpay
-					GROUP BY HOUR(pay_time)";
-
+// Lấy doanh thu theo giờ
+$sales_by_hour = "SELECT HOUR(pay_time) as hname, sum(amount) as total_sales FROM aamarpay GROUP BY HOUR(pay_time)";
 $res_sales_by_hour = mysqli_query($conn, $sales_by_hour);
 
-$most_sold_items = "SELECT sum(Quantity) as total_qty,
-							Item_Name as item_name
-							FROM online_orders_new
-							GROUP BY Item_Name
-							";
+// Lấy các món bán chạy nhất
+$most_sold_items = "SELECT sum(Quantity) as total_qty, Item_Name as item_name FROM online_orders_new GROUP BY Item_Name";
 $res_most_sold_items = mysqli_query($conn, $most_sold_items);
 
-//Orders
-
-$ei_order_notif = "SELECT order_status from tbl_eipay
-					WHERE order_status='Pending' OR order_status='Processing'";
-
+// Kiểm tra các đơn hàng đang chờ xử lý
+$ei_order_notif = "SELECT order_status from tbl_eipay WHERE order_status='Pending' OR order_status='Processing'";
 $res_ei_order_notif = mysqli_query($conn, $ei_order_notif);
-
 $row_ei_order_notif = mysqli_num_rows($res_ei_order_notif);
 
-$online_order_notif = "SELECT order_status from order_manager
-					WHERE order_status='Pending'OR order_status='Processing' ";
-
+// Kiểm tra đơn hàng online đang chờ xử lý
+$online_order_notif = "SELECT order_status from order_manager WHERE order_status='Pending'OR order_status='Processing'";
 $res_online_order_notif = mysqli_query($conn, $online_order_notif);
-
 $row_online_order_notif = mysqli_num_rows($res_online_order_notif);
 
-// Stock Notification
-$stock_notif = "SELECT stock FROM tbl_food
-				WHERE stock<50";
-
+// Kiểm tra số lượng hàng trong kho dưới 50
+$stock_notif = "SELECT stock FROM tbl_food WHERE stock<50";
 $res_stock_notif = mysqli_query($conn, $stock_notif);
 $row_stock_notif = mysqli_num_rows($res_stock_notif);
 
-
-// Revenue Generated
-$revenue = "SELECT SUM(total_amount) AS total_amount FROM order_manager
-			WHERE order_status='Delivered' ";
+// Lấy tổng doanh thu
+$revenue = "SELECT SUM(total_amount) AS total_amount FROM order_manager WHERE order_status='Delivered'";
 $res_revenue = mysqli_query($conn, $revenue);
 $total_revenue = mysqli_fetch_array($res_revenue);
 
-//Total Orders Delivered
-
-$orders_delivered = "SELECT order_status FROM order_manager
-					 WHERE order_status='Delivered'";
+// Lấy số lượng đơn hàng đã hoàn thành
+$orders_delivered = "SELECT order_status FROM order_manager WHERE order_status='Delivered'";
 $res_orders_delivered = mysqli_query($conn, $orders_delivered);
 $total_orders_delivered = mysqli_num_rows($res_orders_delivered);
 
-//Message Notification
-$message_notif = "SELECT message_status FROM message
-				 WHERE message_status = 'unread'";
+// Lấy thông báo tin nhắn chưa đọc
+$message_notif = "SELECT message_status FROM message WHERE message_status = 'unread'";
 $res_message_notif = mysqli_query($conn, $message_notif);
 $row_message_notif = mysqli_num_rows($res_message_notif);
-
 
 ?>
 

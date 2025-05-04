@@ -46,6 +46,15 @@ CREATE TABLE order_manager (
   FOREIGN KEY (username) REFERENCES tbl_users (username) ON DELETE SET NULL  -- Liên kết với bảng người dùng
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+ALTER TABLE order_manager
+DROP FOREIGN KEY order_manager_ibfk_2;
+-- 3. Thêm lại khóa ngoại với ON UPDATE CASCADE
+ALTER TABLE order_manager
+ADD CONSTRAINT order_manager_ibfk_2
+FOREIGN KEY (username) REFERENCES tbl_users(username)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
 -- 🟢 4. Bảng chi tiết đơn hàng online_orders_new
 CREATE TABLE online_orders_new (
   order_id INT(10) NOT NULL,                 -- Mã đơn hàng (liên kết với order_manager)
@@ -158,34 +167,6 @@ CREATE TABLE tbl_promotions (
   PRIMARY KEY (id)                             -- Khóa chính
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- 🟢 13. Bảng đánh giá tbl_reviews
-CREATE TABLE tbl_reviews (
-  id INT(11) NOT NULL AUTO_INCREMENT,          -- ID đánh giá, tự tăng
-  user_id INT(11) NOT NULL,                    -- ID người dùng (liên kết với bảng tbl_users)
-  food_id INT(10) UNSIGNED,                    -- Món ăn được đánh giá (liên kết với tbl_food)
-  order_id INT(10) NOT NULL,                   -- Đơn hàng liên quan
-  rating INT(1) NOT NULL CHECK (rating BETWEEN 1 AND 5), -- Đánh giá từ 1 đến 5 sao
-  review_text TEXT,                            -- Nội dung phản hồi
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian đánh giá
-  PRIMARY KEY (id),                            -- Khóa chính
-  FOREIGN KEY (user_id) REFERENCES tbl_users (id) ON DELETE CASCADE,  -- Liên kết với bảng tbl_users
-  FOREIGN KEY (food_id) REFERENCES tbl_food (id) ON DELETE CASCADE,   -- Liên kết với bảng tbl_food
-  FOREIGN KEY (order_id) REFERENCES order_manager (order_id) ON DELETE CASCADE  -- Liên kết với bảng order_manager
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- 🟢 14. Bảng lịch sử đơn hàng tbl_order_history
-CREATE TABLE tbl_order_history (
-  id INT(11) NOT NULL AUTO_INCREMENT,          -- ID lịch sử đơn hàng, tự tăng
-  user_id INT(11) NOT NULL,                    -- ID người dùng (liên kết với bảng tbl_users)
-  food_id INT(10) UNSIGNED NOT NULL,           -- Món ăn đã được đặt (liên kết với tbl_food)
-  order_count INT(11) NOT NULL DEFAULT 1,      -- Số lần đặt món này
-  last_order_date DATETIME NOT NULL,           -- Lần cuối đặt món
-  PRIMARY KEY (id),                            -- Khóa chính
-  UNIQUE KEY user_food_unique (user_id, food_id), -- Đảm bảo mỗi món chỉ có 1 dòng cho 1 người dùng
-  FOREIGN KEY (user_id) REFERENCES tbl_users (id) ON DELETE CASCADE,  -- Liên kết với bảng tbl_users
-  FOREIGN KEY (food_id) REFERENCES tbl_food (id) ON DELETE CASCADE  -- Liên kết với bảng tbl_food
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
 
 INSERT INTO aamarpay (cus_name, amount, status, transaction_id, card_type) 
 VALUES 
@@ -199,7 +180,7 @@ VALUES
 ('Admin 1', 'adsmin1@example.com', '123 Street', 'Ho Chi Minh', '01234567389', 'admin12', 'adminpassword1', 'admin'),
 ('Admin 2', 'admsin2@example.com', '456 Avenue', 'Ho Chi Minh', '09876543321', 'admin22', 'adminpassword2', 'admin');
 UPDATE tbl_users 
-SET password = MD5('newpassword') 
+SET password = MD5('1') 
 WHERE username = 'admin12';
 
 INSERT INTO order_manager (username, cus_name, cus_email, cus_add1, cus_city, cus_phone, payment_status, order_date, total_amount, transaction_id, order_status)
@@ -442,21 +423,12 @@ VALUES
 ('DISCOUNT20', 'Giảm 20% cho đơn hàng', 20, 0, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
 ('DISCOUNT30', 'Giảm 30% cho đơn hàng', 30, 0, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
 ('DISCOUNT50', 'Giảm 50% cho đơn hàng', 50, 0, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
-('DISCOUNT100', 'Giảm 100.000 VND cho đơn hàng', 0, 100000, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
-('DISCOUNT150', 'Giảm 150.000 VND cho đơn hàng', 0, 150000, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
+('DISCOUNT100', 'Giảm 100.000 VND cho đơn hàng', 0, 100.00, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
+('DISCOUNT150', 'Giảm 150.000 VND cho đơn hàng', 0, 150.00, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
 ('SUMMER20', 'Giảm 20% mùa hè', 20, 0, '2025-06-01 00:00:00', '2025-08-31 23:59:59', 'Active'),
 ('WINTER25', 'Giảm 25% mùa đông', 25, 0, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 'Active'),
 ('NEWYEAR15', 'Giảm 15% năm mới', 15, 0, '2025-01-01 00:00:00', '2025-01-15 23:59:59', 'Active'),
 ('XMAS50', 'Giảm 50% Giáng sinh', 50, 0, '2025-12-01 00:00:00', '2025-12-25 23:59:59', 'Active');
 
 
-INSERT INTO tbl_reviews (user_id, food_id, order_id, rating, review_text, created_at)
-VALUES 
-(1, 1, 1, 5, 'Bánh mì rất ngon, giòn và hương vị tuyệt vời!', NOW()),
-(2, 2, 2, 4, 'Phở khá ngon nhưng hơi nhiều nước.', NOW());
 
-INSERT INTO tbl_order_history (user_id, food_id, order_count, last_order_date)
-VALUES 
-(1, 1, 3, NOW()),  -- Nguyễn Thi Lan đã đặt bánh mì 3 lần
-(1, 2, 1, NOW()),  -- Nguyễn Thi Lan đã đặt phở 1 lần
-(2, 2, 2, NOW());  -- Lê Minh Tú đã đặt phở 2 lần

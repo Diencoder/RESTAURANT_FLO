@@ -29,12 +29,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     $res = mysqli_query($conn, $sql);
         if($res==true)
         {
-          $_SESSION['delete'] = "<div class='success'>Category Deleted Successfully.</div>";
+          $_SESSION['delete'] = "<div class='success'>Danh mục đã được xóa thành công.</div>";
             header('location:'.SITEURL.'manage-category.php');
         }
         else
         {
-          $_SESSION['delete'] = "<div class='error'>Failed to Delete Category.</div>";
+          $_SESSION['delete'] = "<div class='error'>Xóa danh mục thất bại.</div>";
             header('location:'.SITEURL.'manage-category.php');
         }
     }
